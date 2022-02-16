@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>buzzquiz</title>
@@ -14,7 +14,7 @@
 
 <body>
     <header>BuzzQuizz</header>
-    <main>
+    <main class="hidden">
         <section class="noQuizz">
             <p> não criou nenhum quizz ainda :(</p>
             <button>Criar Quizz</button>
@@ -22,16 +22,18 @@
 
         <h2>Todos os Quizzes</h2>
         <section class="allQuizz">
-            <!-- Carregado dinamicamente via JS --> 
+            <!-- Carregado dinamicamente via JS -->
             <article>
-                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                    alt="">
                 <div class="gradient">
                     <p> Teste nome</p>
                 </div>
             </article>
 
             <article>
-                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                    alt="">
                 <div class="gradient"></div>
                 <p> Teste nome</p>
             </article>
@@ -39,7 +41,31 @@
         </section>
 
     </main>
-    
+
+    <!--Criação Quiz-->
+
+    <div class="createQuiz">
+        <div class="createHeader">
+            <h3>Comece pelo começo</h3>
+        </div>
+        <div class="basicInfo">
+            <input type="text" placeholder="Título do seu quizz">
+            </input>
+            <input type="text" placeholder="URL da imagem do seu quizz">
+            </input>
+            <input type="text" placeholder="Quantidade de perguntas do quizz">
+            </input>
+            <input type="text" placeholder="Quantidade de níveis do quizz">
+            </input>
+        </div>
+
+        <button onclick="basicInfo()">
+            <span>Prosseguir pra criar perguntas</span>
+        </button>
+
+
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
