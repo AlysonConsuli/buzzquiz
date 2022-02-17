@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: #fafafa;
+}
+
 body,
 button {
     font-family: 'Roboto', sans-serif;
@@ -25,8 +29,10 @@ header {
     font-weight: 700;
     color: #FFFFFF;
     position: sticky;
+    z-index: 1;
     top: 0;
     left: 0;
+    cursor: default;
 }
 
 main section.noQuizz {
@@ -120,16 +126,18 @@ article p{
     display: none;
 }
 
-.createQuiz{
+/*.createQuiz{
     background-color: #fafafa;
     height: calc(100vh - 64px);
-}
+    height: 100%;
+}*/
 
 .createHeader{
     height: 89px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 h3{
@@ -166,6 +174,8 @@ input{
     background-color: #EC362D;
     margin: 29px 27px 0 24px;
     overflow-y: auto;
+    cursor: pointer;
+    margin-bottom: 61px;
 }
 
 ::placeholder{
@@ -179,4 +189,44 @@ button span{
     font-size: 18px;
     font-weight: 400;
     color: #FFF5F4;
+}
+
+/*input:invalid{
+    background-color: #FFE9E9;
+}*/
+
+.boxQuestion{
+    height: 74px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 17px;
+    margin-bottom: 22px;
+}
+
+ion-icon{
+    font-size: 26px;
+}
+
+.config{
+    height: 100%/* 825px*/;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.boxQuestion h3{
+    margin-top: 27px;
+    margin-bottom: 14px;
+}
+
+.boxQuestion input{
+    margin-bottom: 14px;
+}
+
+.boxQuestion input.margin32{
+    margin-bottom: 32px;
 }
