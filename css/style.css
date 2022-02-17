@@ -243,6 +243,8 @@ input {
     border: 1px solid #D1D1D1;
     border-radius: 5px;
     padding-left: 14px;
+    font-size: 19px;
+    font-family: 'Roboto';
 }
 
 .createQuiz button {
@@ -273,9 +275,9 @@ button span {
     color: #FFF5F4;
 }
 
-/*input:invalid{
+input:invalid{
     background-color: #FFE9E9;
-}*/
+}
 
 .boxQuestion {
     height: 74px;
@@ -293,9 +295,7 @@ ion-icon {
 }
 
 .config {
-    height: 100%
-        /* 825px*/
-    ;
+    height: 100%;
     background-color: #ffffff;
     flex-direction: column;
     justify-content: center;
