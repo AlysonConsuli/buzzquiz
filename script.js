@@ -16,7 +16,7 @@ function renderAllQuizz(quizzes) {
 	all_Quizz.innerHTML = ""
 	quizzes.forEach(quizz => {
 		all_Quizz.innerHTML += `
-        <article>
+        <article onclick="startQuizz(this)" id="${quizz.id}">
 		    <img src="${quizz.image}" alt=""/>
 		    <div class="gradient">
 		    <p>${quizz.title}</p>
@@ -27,27 +27,45 @@ function renderAllQuizz(quizzes) {
 }
 
 //  Renderização da Tela 2 //
+let currentQuizz = null;
 
-function startQuizz (currentQuizz){
+function startQuizz(response) {
 	const mainScreen = document.querySelector('main')
 	mainScreen.classList.add('hidden')
-	
+	let selectedQuizz = response.id
+
+	// console.log(response);
+	// console.log(selectedQuizz);
+
+	currentQuizz = axios.get(`${API_QUIZZ}/${selectedQuizz}`)
 	const scren2 = document.querySelector('.screen-2')
-	scren2.innerHTML = `
+	const screenQuestion = document.querySelector('.desisto')
+	// scren2.innerHTML = ""
+
+	currentQuizz.then((response) => {
+		currentQuizz = response.data
+
+		scren2.innerHTML = `
         <figure>
-            <p>Titulo do Quizz</p>
-            <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+            <p>${currentQuizz.title}</p>
+            <img src="${currentQuizz.image}" alt="">
             <div class="gradient-2"></div>
         </figure>
+		`
 
-        <section>
-            to bolado e puto
-        </section>
-
-	`
-
+		currentQuizz.questions.forEach((question) => {
+			screenQuestion.innerHTML = `
+			<div class="title">${question.title}</div>
+            <div class="questions">
+                <span class="question">
+                    <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                        alt="">
+                    <span>carhorro</span>
+                </span>
+			`
+		})
+	})
 }
-
 
 
 //Criação Quiz
@@ -75,7 +93,7 @@ function basicInfo() {
 	}
 }
 
-function hiddenBasicInfo(){
+function hiddenBasicInfo() {
 	let h3 = createQuiz.querySelector('h3')
 	h3.innerText = 'Crie suas perguntas'
 	const basicsInfo = createQuiz.querySelector('.basicInfo')
@@ -85,20 +103,20 @@ function hiddenBasicInfo(){
 	buttonCreateQuiz.innerHTML = `<span>Prosseguir pra criar níveis</span>`
 }
 
-function createQuestions(){
+function createQuestions() {
 
-	for(let i = 0; i < numberQuestions.value; i++){
+	for (let i = 0; i < numberQuestions.value; i++) {
 		container.innerHTML += `
 		<div class="boxQuestion">
-        	<h3>Pergunta ${i+1}</h3>
+        	<h3>Pergunta ${i + 1}</h3>
         	<ion-icon name="create-outline" onclick="openQuestion(this)"></ion-icon>
     	</div>
 		`
 	}
-	
+
 }
 
-function openQuestion(botao){
+function openQuestion(botao) {
 	const box = botao.parentNode
 	botao.classList.add('hidden')
 	box.classList.add('config')
@@ -123,7 +141,7 @@ function openQuestion(botao){
 }
 
 // Inicialização// 
-getAllQuizz()
+// getAllQuizz()
 
 /*{
 	title: "Título do quizz",
@@ -192,4 +210,5 @@ getAllQuizz()
 			minValue: 50
 		}
 	]
-}*/
+}
+*/

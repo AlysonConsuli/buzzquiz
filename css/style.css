@@ -1,8 +1,8 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: #fafafa;
 }
 
@@ -35,7 +35,7 @@ main section.noQuizz {
     margin: auto;
     margin-top: 2rem;
     height: 181px;
-    
+
     display: flex;
     /* flex-wrap: wrap; */
     align-items: center;
@@ -46,26 +46,26 @@ main section.noQuizz {
     border-radius: 5px;
 }
 
-main section.noQuizz p{
+main section.noQuizz p {
     color: #B9B9B9;
     font-size: 20px;
     line-height: 23px;
 }
 
-main section.noQuizz button{
+main section.noQuizz button {
     height: 40px;
     width: 151px;
 
     background-color: white;
     border: 2px dashed #EC362D;
     border-radius: 50px;
-    
+
     font-size: 21px;
     color: #EC362D;
     overflow-y: hidden;
 }
 
-h2{
+h2 {
     margin-left: 1.5rem;
     margin-top: 3rem;
     margin-bottom: 1rem;
@@ -75,42 +75,42 @@ h2{
     color: #000000;
 }
 
-article{
+article {
     width: 90%;
     margin: auto;
     position: relative;
     margin-bottom: 1rem;
 }
 
-article img{
+article img {
     width: 340px;
     height: 181px;
     object-fit: cover;
-    
+
     display: flex;
     margin: auto;
-    
+
     border-radius: 5px;
 }
 
-article p{
+article p {
     color: #FFFFFF;
     font-size: 19px;
     line-height: 22px;
 
-    position:absolute;
+    position: absolute;
     bottom: 10%;
     left: 4%;
     max-width: 80%;
 }
 
-.gradient{
+.gradient {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-image:linear-gradient(180deg,rgba(255, 255, 255, 0) 0%,rgba(0, 0, 0, 0.5) 64.58%,rgb(0, 0, 0) 100%);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, rgb(0, 0, 0) 100%);
     border-radius: 5px;
     width: 340px;
     margin: auto;
@@ -121,20 +121,20 @@ article p{
 
 
 
-.screen-2 figure{
- position: relative;
- width: 100%;
- height: 142px;
- margin-bottom: 2rem;
+.screen-2 figure {
+    position: relative;
+    width: 100%;
+    height: 142px;
+    margin-bottom: 2rem;
 }
 
-.screen-2 figure img{
+.screen-2 figure img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.screen-2 p{
+.screen-2 p {
     position: absolute;
     z-index: 1;
     color: #FFFFFF;
@@ -146,21 +146,65 @@ article p{
     font-size: 19px;
 }
 
-.gradient-2{
+.gradient-2 {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(image.png);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(image.png);
     width: 100%;
 }
 
+.screen-2 section {
+    width: 373px;
+    margin: auto;
+    /* background-color: #EC362D; */
+}
 
+.screen-2 section .title {
+    width: 94%;
+    height: 5rem;
+    background-color: rgb(35, 82, 14);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-size: 19px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    margin: auto;
+    margin-right: 13px;
+}
+
+.screen-2 section .questions{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.screen-2 section .questions .question{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-bottom: 7px;
+}
+
+.screen-2 section .questions .question span{
+ margin-left: 10px;
+}
+
+.screen-2 section .questions img{
+    width: 163px;
+    height: 113px;
+    object-fit: cover;
+    margin: 10px;
+}
 
 /*Criação Quiz*/
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -170,7 +214,7 @@ article p{
     height: 100%;
 }*/
 
-.createHeader{
+.createHeader {
     height: 89px;
     display: flex;
     justify-content: center;
@@ -178,19 +222,19 @@ article p{
     cursor: default;
 }
 
-h3{
+h3 {
     font-size: 20px;
     font-weight: 700;
 }
 
-.basicInfo{
+.basicInfo {
     height: 256px;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     padding: 21px 18px 0 16px;
 }
 
-input{
+input {
     height: 46px;
     width: 100%;
     display: flex;
@@ -201,11 +245,11 @@ input{
     padding-left: 14px;
 }
 
-.createQuiz button{
+.createQuiz button {
     border: none;
     border-radius: 15px;
     height: 54px;
-    width: calc(100% - 51px); 
+    width: calc(100% - 51px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -216,14 +260,14 @@ input{
     margin-bottom: 61px;
 }
 
-::placeholder{
+::placeholder {
     font-size: 19px;
     font-weight: 400;
     font-style: italic;
     color: #BABABA;
 }
 
-button span{
+button span {
     font-size: 18px;
     font-weight: 400;
     color: #FFF5F4;
@@ -233,7 +277,7 @@ button span{
     background-color: #FFE9E9;
 }*/
 
-.boxQuestion{
+.boxQuestion {
     height: 74px;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -244,27 +288,29 @@ button span{
     margin-bottom: 22px;
 }
 
-ion-icon{
+ion-icon {
     font-size: 26px;
 }
 
-.config{
-    height: 100%/* 825px*/;
+.config {
+    height: 100%
+        /* 825px*/
+    ;
     background-color: #ffffff;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
 
-.boxQuestion h3{
+.boxQuestion h3 {
     margin-top: 27px;
     margin-bottom: 14px;
 }
 
-.boxQuestion input{
+.boxQuestion input {
     margin-bottom: 14px;
 }
 
-.boxQuestion input.margin32{
+.boxQuestion input.margin32 {
     margin-bottom: 32px;
 }
