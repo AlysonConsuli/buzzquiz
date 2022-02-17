@@ -26,6 +26,33 @@ function renderAllQuizz(quizzes) {
 	})
 }
 
+//  Renderização da Tela 2 //
+
+function startQuizz (currentQuizz){
+	const mainScreen = document.querySelector('main')
+	mainScreen.classList.add('hidden')
+	
+	const scren2 = document.querySelector('.screen-2')
+	scren2.innerHTML = `
+        <figure>
+            <p>Titulo do Quizz</p>
+            <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+            <div class="gradient-2"></div>
+        </figure>
+
+        <section>
+            to bolado e puto
+        </section>
+
+	`
+
+}
+
+
+
+
+
+
 
 //Criação Quiz
 
@@ -50,4 +77,4 @@ function basicInfo() {
 }
 
 // Inicialização// 
-getAllQuizz()
+// getAllQuizz()
