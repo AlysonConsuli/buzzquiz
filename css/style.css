@@ -314,3 +314,7 @@ ion-icon {
 .boxQuestion input.margin32 {
     margin-bottom: 32px;
 }
+
+.questionOpen{
+    width: 100%;
+}

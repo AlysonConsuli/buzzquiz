@@ -83,7 +83,7 @@ const container = createQuiz.querySelector('.container')
 const quizTitle = createQuiz.querySelector('input:first-child')
 const quizImg = createQuiz.querySelector('input:nth-child(2)')
 const numberQuestions = createQuiz.querySelector('input:nth-child(3)')
-const numberLvls = createQuiz.querySelector('input:last-child')
+const numberLvls = createQuiz.querySelector('input:nth-child(4)')
 
 function basicInfo() {
 
@@ -104,104 +104,103 @@ function hiddenBasicInfo() {
 	const basicsInfo = createQuiz.querySelector('.basicInfo')
 	basicsInfo.classList.add('hidden')
 	const buttonCreateQuiz = createQuiz.querySelector('button')
-	//buttonCreateQuiz.removeAttribute("onclick");
 	buttonCreateQuiz.setAttribute("onclick", "questionsInfo()");
 	buttonCreateQuiz.innerHTML = `<span>Prosseguir pra criar níveis</span>`
 }
 
 function createQuestions() {
-
 	for (let i = 0; i < numberQuestions.value; i++) {
 		container.innerHTML += `
 		<div class="boxQuestion question${i + 1}">
         	<h3>Pergunta ${i + 1}</h3>
         	<ion-icon name="create-outline" onclick="openQuestion(this)"></ion-icon>
-    	</div>
+
+			<div class="questionOpen hidden">
+				<input class="questionText" type="text" placeholder="Texto da pergunta" minlength="20" required></input>
+				<input class="questionColor" type="text" placeholder="Cor de fundo da pergunta" minlength="7" maxlength="7" required></input>
+			
+				<h3>Resposta correta</h3>
+				<input class="correctText" type="text" placeholder="Resposta correta" required></input>
+				<input class="correctImg" type="url" placeholder="URL da imagem" required></input>
+			
+				<h3>Respostas incorretas</h3>
+				<input class="incorrectText1" type="text" placeholder="Resposta incorreta 1" required></input>
+				<input class="incorrectImg1 margin32" type="url" placeholder="URL da imagem 1" required></input>
+			
+				<input type="text" placeholder="Resposta incorreta 2"></input>
+				<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
+			
+				<input type="text" placeholder="Resposta incorreta 3"></input>
+				<input type="url" placeholder="URL da imagem 3"></input>
+			</div>
+
+		</div>
 		`
 	}
-
+	let question1 = document.querySelector('.questionOpen')
+	let btn1 = question1.parentNode.querySelector('ion-icon')
+	btn1.classList.add('hidden')
+	question1.parentNode.classList.add('config')
+	question1.classList.remove('hidden')
 }
 
-let contador = 0
-
 function openQuestion(botao) {
+	const config = container.querySelector('.config')
+	const btn = config.querySelector('ion-icon')
+	btn.classList.remove('hidden')
+	const hiddenQuestion = config.querySelector('.questionOpen')
+	hiddenQuestion.classList.add('hidden')
+	config.classList.remove('config')
+
 	const box = botao.parentNode
 	botao.classList.add('hidden')
 	box.classList.add('config')
-	box.innerHTML += `
-	<input class="questionText" type="text" placeholder="Texto da pergunta" minlength="20" required></input>
-	<input class="questionColor" type="text" placeholder="Cor de fundo da pergunta" minlength="7" maxlength="7" required></input>
-	
-	<h3>Resposta correta</h3>
-	<input class="correctText" type="text" placeholder="Resposta correta" required></input>
-	<input class="correctImg" type="url" placeholder="URL da imagem" required></input>
-	
-	<h3>Respostas incorretas</h3>
-	<input class="incorrectText1" type="text" placeholder="Resposta incorreta 1" required></input>
-	<input class="incorrectImg1 margin32" type="url" placeholder="URL da imagem 1" required></input>
-	
-	<input type="text" placeholder="Resposta incorreta 2"></input>
-	<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
-	
-	<input type="text" placeholder="Resposta incorreta 3"></input>
-	<input type="url" placeholder="URL da imagem 3"></input>
-	`
-
-	contador++
-	/*let questionH3 = box.querySelector('h3')
-	let numberQuestion = parseInt((questionH3.innerText).substring(9,questionH3.innerText.length))
-	let questionText = box.querySelector('input:first-child')
-	let questionColor = box.querySelector('input:nth-child(2)')*/
-
+	let questionOpen = box.querySelector('.questionOpen')
+	questionOpen.classList.remove('hidden')
 }
-
-const hexChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
 
 function questionsInfo() {
 	const questions = container.querySelectorAll('.boxQuestion')
 
-	if (contador !== parseInt(numberQuestions.value)) {
-		alert('Preencha todas as perguntas!')
-	} else {
-		for (let i = 0; i < questions.length; i++) {
-			let question = questions[i]
-			let questionText = question.querySelector('.questionText')
-			let questionColor = question.querySelector('.questionColor')
+	for (let i = 0; i < questions.length; i++) {
+		let question = questions[i]
+		let questionText = question.querySelector('.questionText')
+		let questionColor = question.querySelector('.questionColor')
 
-			let correctText = question.querySelector('.correctText')
-			let correctImg = question.querySelector('.correctImg')
+		let correctText = question.querySelector('.correctText')
+		let correctImg = question.querySelector('.correctImg')
 
-			let incorrectText1 = question.querySelector('.incorrectText1')
-			let incorrectImg1 = question.querySelector('.incorrectImg1')
+		let incorrectText1 = question.querySelector('.incorrectText1')
+		let incorrectImg1 = question.querySelector('.incorrectImg1')
 
-			let answers = [
-				{
-					text: correctText.value,
-					image: correctImg.value,
-					isCorrectAnswer: true
-				},
-				{
-					text: incorrectText1.value,
-					image: incorrectImg1.value,
-					isCorrectAnswer: false
-				}
-			]
-
-			if (isHex(questionColor.value) === false || !questionText.checkValidity() || !questionColor.checkValidity() || !correctText.checkValidity() || !incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
-				alert('Dados inválidos! Insira os dados corretamente!')
-				quizDone.questions = []
-				i = questions.length
-			} else {
-				quizDone.questions.push({
-					title: questionText.value,
-					color: questionColor.value,
-					answers: answers
-				})
+		let answers = [
+			{
+				text: correctText.value,
+				image: correctImg.value,
+				isCorrectAnswer: true
+			},
+			{
+				text: incorrectText1.value,
+				image: incorrectImg1.value,
+				isCorrectAnswer: false
 			}
+		]
+
+		if (isHex(questionColor.value) === false || !questionText.checkValidity() || !questionColor.checkValidity() || !correctText.checkValidity() || !incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+			alert('Dados inválidos! Insira os dados corretamente!')
+			quizDone.questions = []
+			i = questions.length
+		} else {
+			quizDone.questions.push({
+				title: questionText.value,
+				color: questionColor.value,
+				answers: answers
+			})
 		}
 	}
 }
 
+const hexChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
 function isHex(color) {
 	if (color.substring(0, 1) !== '#') {
 		return false
