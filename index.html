@@ -115,14 +115,14 @@
         </div>
     </div>
 
-    <!--Criação Quiz-->
+    <!---------Criação Quiz--------->
 
     <div class="createQuiz hidden">
         <div class="createHeader">
             <h3>Comece pelo começo</h3>
         </div>
         <div class="container">
-            <div class="basicInfo">
+            <div class="basicInfoScreen">
                 <input type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" required>
                 </input>
                 <input type="url" placeholder="URL da imagem do seu quizz" required>
@@ -134,9 +134,10 @@
             </div>
             <div class="questionScreen"></div>
             <div class="lvlScreen"></div>
+            <div class="endScreen"></div>
         </div>
 
-        <button onclick="basicInfo()">
+        <button onclick="saveBasicInfo()">
             <span>Prosseguir pra criar perguntas</span>
         </button>
 
