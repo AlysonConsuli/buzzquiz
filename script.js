@@ -87,91 +87,218 @@ function startQuizz(response) {
 			//}
 		})
 		
-		jorge = document.querySelectorAll('.questions')
-		jorge = [...jorge]
+		arrayTeste = document.querySelectorAll('.questions')
+		arrayTeste = [...arrayTeste]
 		questionNum.forEach(answer => {
 			console.log(answer.text, answer.image);
 		});
-		for (let i = 0; i < jorge.length; i++) {
-			// console.log(jorge[i])
+		for (let i = 0; i < arrayTeste.length; i++) {
+			// console.log(arrayTeste[i])
 			
 			
 		}
 	})
 }
 
-let jorge = null;
+let arrayTeste = null;
 
 //Criação Quiz
 
+const quizDone = {
+	title: '',
+	image: '',
+	questions: [],
+	levels: []
+}
+
 const createQuiz = document.querySelector('.createQuiz')
 const container = createQuiz.querySelector('.container')
+const basicsInfo = createQuiz.querySelector('.basicInfo')
+const questionScreen = container.querySelector('.questionScreen')
+const lvlScreen = container.querySelector('.lvlScreen')
 
 const quizTitle = createQuiz.querySelector('input:first-child')
 const quizImg = createQuiz.querySelector('input:nth-child(2)')
 const numberQuestions = createQuiz.querySelector('input:nth-child(3)')
-const numberLvls = createQuiz.querySelector('input:last-child')
+const numberLvls = createQuiz.querySelector('input:nth-child(4)')
 
 function basicInfo() {
 
 	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
 	} else {
-		console.log(quizTitle.value)
-		console.log(quizImg.value)
-		console.log(numberQuestions.value)
-		console.log(numberLvls.value)
+		quizDone.title = quizTitle.value
+		quizDone.image = quizImg.value
 
 		hiddenBasicInfo()
 		createQuestions()
 	}
 }
 
+const h3 = createQuiz.querySelector('h3')
+const buttonCreateQuiz = createQuiz.querySelector('button')
+
 function hiddenBasicInfo() {
-	let h3 = createQuiz.querySelector('h3')
 	h3.innerText = 'Crie suas perguntas'
-	const basicsInfo = createQuiz.querySelector('.basicInfo')
 	basicsInfo.classList.add('hidden')
-	const buttonCreateQuiz = createQuiz.querySelector('button')
-	buttonCreateQuiz.removeAttribute("onclick");
+	buttonCreateQuiz.setAttribute("onclick", "questionsInfo()");
 	buttonCreateQuiz.innerHTML = `<span>Prosseguir pra criar níveis</span>`
 }
 
 function createQuestions() {
-
 	for (let i = 0; i < numberQuestions.value; i++) {
-		container.innerHTML += `
-		<div class="boxQuestion">
+		questionScreen.innerHTML += `
+		<div class="boxQuestion question${i + 1}">
         	<h3>Pergunta ${i + 1}</h3>
         	<ion-icon name="create-outline" onclick="openQuestion(this)"></ion-icon>
-    	</div>
+			<div class="questionOpen hidden">
+				<input class="questionText" type="text" placeholder="Texto da pergunta" minlength="20" required></input>
+				<input class="questionColor" type="text" placeholder="Cor de fundo da pergunta" minlength="7" maxlength="7" required></input>
+			
+				<h3 class="marginH3">Resposta correta</h3>
+				<input class="correctText" type="text" placeholder="Resposta correta" required></input>
+				<input class="correctImg" type="url" placeholder="URL da imagem" required></input>
+			
+				<h3 class="marginH3">Respostas incorretas</h3>
+				<input class="incorrectText1" type="text" placeholder="Resposta incorreta 1" required></input>
+				<input class="incorrectImg1 margin32" type="url" placeholder="URL da imagem 1" required></input>
+			
+				<input type="text" placeholder="Resposta incorreta 2"></input>
+				<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
+			
+				<input type="text" placeholder="Resposta incorreta 3"></input>
+				<input type="url" placeholder="URL da imagem 3"></input>
+			</div>
+		</div>
 		`
 	}
-
+	let question1 = document.querySelector('.questionOpen')
+	let btn1 = question1.parentNode.querySelector('ion-icon')
+	btn1.classList.add('hidden')
+	question1.parentNode.classList.add('config')
+	question1.classList.remove('hidden')
 }
 
 function openQuestion(botao) {
+	const config = container.querySelector('.config')
+	const btn = config.querySelector('ion-icon')
+	btn.classList.remove('hidden')
+	const hiddenQuestion = config.querySelector('.questionOpen')
+	hiddenQuestion.classList.add('hidden')
+	config.classList.remove('config')
+
 	const box = botao.parentNode
 	botao.classList.add('hidden')
 	box.classList.add('config')
-	box.innerHTML += `
-	<input type="text" placeholder="Texto da pergunta" minlength="20" required></input>
-	<input type="color" placeholder="Cor de fundo da pergunta"></input>
-	
-	<h3>Resposta correta</h3>
-	<input type="text" placeholder="Resposta correta" required></input>
-	<input type="url" placeholder="URL da imagem"></input>
-	
-	<h3>Respostas incorretas</h3>
-	<input type="text" placeholder="Resposta incorreta 1" required></input>
-	<input class="margin32" type="url" placeholder="URL da imagem 1"></input>
-	
-	<input type="text" placeholder="Resposta incorreta 2"></input>
-	<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
-	
-	<input type="text" placeholder="Resposta incorreta 3"></input>
-	<input type="url" placeholder="URL da imagem 3"></input>
-	`
+	let questionOpen = box.querySelector('.questionOpen')
+	questionOpen.classList.remove('hidden')
+	scrollQuestion('config')
+}
+
+function questionsInfo() {
+	const questions = container.querySelectorAll('.boxQuestion')
+
+	for (let i = 0; i < questions.length; i++) {
+		let question = questions[i]
+		let questionText = question.querySelector('.questionText')
+		let questionColor = question.querySelector('.questionColor')
+
+		let correctText = question.querySelector('.correctText')
+		let correctImg = question.querySelector('.correctImg')
+
+		let incorrectText1 = question.querySelector('.incorrectText1')
+		let incorrectImg1 = question.querySelector('.incorrectImg1')
+
+		let answers = [
+			{
+				text: correctText.value,
+				image: correctImg.value,
+				isCorrectAnswer: true
+			},
+			{
+				text: incorrectText1.value,
+				image: incorrectImg1.value,
+				isCorrectAnswer: false
+			}
+		]
+
+		if (isHex(questionColor.value) === false || !questionText.checkValidity() || !questionColor.checkValidity() || !correctText.checkValidity() || !incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+			quizDone.questions = []
+			return alert('Dados inválidos! Insira os dados corretamente!')
+			//i = questions.length
+		} else {
+			quizDone.questions.push({
+				title: questionText.value,
+				color: questionColor.value,
+				answers: answers
+			})
+		}
+	}
+	hideQuestions()
+	createLevels()
+}
+
+const hexChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+function isHex(color) {
+	if (color.substring(0, 1) !== '#') {
+		return false
+	}
+	for (let j = 1; j < color.length; j++) {
+		if (!hexChar.includes((color.substring(j, j + 1)).toLowerCase())) {
+			return false
+		}
+	}
+	return true
+}
+
+function scrollQuestion(box) {
+	let elementoQueQueroQueApareca = document.querySelector(`.${box} h3`);
+	elementoQueQueroQueApareca.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideQuestions() {
+	h3.innerText = 'Agora, decida os níveis!'
+	questionScreen.classList.add('hidden')
+	buttonCreateQuiz.setAttribute("onclick", "endQuiz()");
+	buttonCreateQuiz.innerHTML = `<span>Finalizar Quizz</span>`
+}
+
+function createLevels() {
+	for (let i = 0; i < numberLvls.value; i++) {
+		lvlScreen.innerHTML += `
+		<div class="box">
+        	<h3>Nível ${i + 1}</h3>
+        	<ion-icon name="create-outline" onclick="openLevels(this)"></ion-icon>
+        	<div class="lvlOpen hidden">
+            	<input class="lvlText" type="text" placeholder="Título do nível" minlength="10" required></input>
+            	<input class="lvlMin" type="number" placeholder="% de acerto mínima" min="0" max="100" required></input>
+            	<input class="lvlImg" type="url" placeholder="URL da imagem do nível" required></input>
+            	<textarea class="lvlDesc" placeholder="Descrição do nível" minlength="30" required></textarea>
+        	</div>
+    	</div>
+		`
+	}
+	let lvl1 = document.querySelector('.lvlOpen')
+	let btn1 = lvl1.parentNode.querySelector('ion-icon')
+	btn1.classList.add('hidden')
+	lvl1.parentNode.classList.add('config')
+	lvl1.classList.remove('hidden')
+}
+
+function openLevels(botao) {
+	const config = lvlScreen.querySelector('.config')
+	const btn = config.querySelector('ion-icon')
+	btn.classList.remove('hidden')
+	const hiddenLvl = config.querySelector('.lvlOpen')
+	hiddenLvl.classList.add('hidden')
+	config.classList.remove('config')
+
+	const box = botao.parentNode
+	botao.classList.add('hidden')
+	box.classList.add('config')
+	let lvlOpen = box.querySelector('.lvlOpen')
+	lvlOpen.classList.remove('hidden')
+	scrollQuestion('config')
 }
 
 // Inicialização// 
@@ -246,3 +373,10 @@ getAllQuizz()
 	]
 }
 */
+
+/*document.addEventListener("keypress", function (e) {
+	if (e.key === "Enter") {
+		const enviar = document.querySelector('footer ion-icon')
+		enviar.click()
+	}
+})*/
