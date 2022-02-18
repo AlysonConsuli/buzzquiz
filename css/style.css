@@ -323,6 +323,28 @@ textarea{
     padding-top: 27px;
 }
 
+.finalButton{
+    height: 44px;
+    margin: 0 77px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #818181;
+}
+
+.createQuiz .reduceBtn{
+    margin: 24px 77px 9px 77px;
+    width: calc(100% - 154px);
+}
+
+.finalImg{
+    height: 181px;
+    width: auto;
+    margin: 0 18px;
+    background-color: red;
+}
 
 /*/////////Auxiliares/////////*/
 

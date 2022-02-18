@@ -123,20 +123,20 @@ const quizImg = createQuiz.querySelector('input:nth-child(2)')
 const numberQuestions = createQuiz.querySelector('input:nth-child(3)')
 const numberLvls = createQuiz.querySelector('input:nth-child(4)')
 
-const h3 = createQuiz.querySelector('h3')
-const buttonCreateQuiz = createQuiz.querySelector('button')
+let h3 = createQuiz.querySelector('h3')
+let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
 
 	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
-	} else { }
-	quizDone.title = quizTitle.value
-	quizDone.image = quizImg.value
+	} else {
+		quizDone.title = quizTitle.value
+		quizDone.image = quizImg.value
 
-	hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
-	createQuestions()
-
+		hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
+		createQuestions()
+	}
 }
 
 function createQuestions() {
@@ -253,16 +253,34 @@ function saveLvls() {
 		}
 	}
 
-	if(hasLvl0() === false){
+	if (hasLvl0() === false) {
 		quizDone.levels = []
 		return alert('Dados inválidos! Insira os dados corretamente!!')
 	}
 
 	hideScreen('Seu quizz está pronto!', lvlScreen, 'accessQuiz', 'Acessar Quizz')
-	//createEnd()
+	createEnd()
 
 }
 
+
+function createEnd() {
+	endScreen.innerHTML = `
+	<div class="finalImg">
+	</div>
+	`
+	createQuiz.innerHTML += `
+	<div class="finalButton" onclick="backHome()">
+        <span>Voltar pra home</span>
+    </div>
+	`
+	const lastBtn = createQuiz.querySelector('button')
+	lastBtn.classList.add('reduceBtn')
+}
+
+//function accessQuiz(){}
+
+//function backHome(){}
 
 
 ///////////////Funções Auxiliares da Criação////////////
@@ -316,13 +334,13 @@ function isHex(color) {
 	return true
 }
 
-function hasLvl0(){
+function hasLvl0() {
 	let hasLvlMin = false
-		quizDone.levels.forEach(levelInfo => {
-			if (parseInt(levelInfo.minValue) === 0) {
-				hasLvlMin = true
-			}
-		})
+	quizDone.levels.forEach(levelInfo => {
+		if (parseInt(levelInfo.minValue) === 0) {
+			hasLvlMin = true
+		}
+	})
 	if (hasLvlMin === false) {
 		return false
 	}
