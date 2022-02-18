@@ -40,7 +40,7 @@ function startQuizz(response) {
 	currentQuizz = axios.get(`${API_QUIZZ}/${selectedQuizz}`)
 	const scren2 = document.querySelector('.screen-2-header')
 	const screenQuestion = document.querySelector('.screen-2-quizz')
-	
+
 	// console.log(screenQuestion);
 	// scren2.innerHTML = ""
 
@@ -55,10 +55,10 @@ function startQuizz(response) {
         </figure>
 
 		`
-		
-		
+
+
 		let newQuestions = response.data.questions
-		
+
 		// console.log(newQuestions);
 
 		newQuestions.forEach((question) => {
@@ -73,12 +73,12 @@ function startQuizz(response) {
 			`
 			questionNum = question.answers.sort(() => Math.random() - 0.5)
 			console.log(questionNum);
-			
+
 			// for (let index = 0; index < questionNum.length; index++) {
 			// 	// console.log(index);
 
 			// 	document.querySelector(`.questions`).innerHTML+= `
-				
+
 			// 	<span class="question">
 			// 			<img src="${question.answers.image}" alt="">
 			// 			<span>${question.answers.text}</span>
@@ -86,7 +86,7 @@ function startQuizz(response) {
 			// 	`
 			//}
 		})
-		
+
 		arrayTeste = document.querySelectorAll('.questions')
 		arrayTeste = [...arrayTeste]
 		questionNum.forEach(answer => {
@@ -94,8 +94,8 @@ function startQuizz(response) {
 		});
 		for (let i = 0; i < arrayTeste.length; i++) {
 			// console.log(arrayTeste[i])
-			
-			
+
+
 		}
 	})
 }
@@ -130,13 +130,13 @@ function saveBasicInfo() {
 
 	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
-	} else {
-		quizDone.title = quizTitle.value
-		quizDone.image = quizImg.value
+	} else { }
+	quizDone.title = quizTitle.value
+	quizDone.image = quizImg.value
 
-		hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
-		createQuestions()
-	}
+	hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
+	createQuestions()
+
 }
 
 function createQuestions() {
@@ -233,9 +233,30 @@ function createLevels() {
 function saveLvls() {
 	const levels = lvlScreen.querySelectorAll('.box')
 
-	/*for (let i = 0; i < levels.length; i++) {
+	for (let i = 0; i < levels.length; i++) {
 		let level = levels[i]
-	}*/
+		let lvlText = level.querySelector('.lvlText')
+		let lvlMin = level.querySelector('.lvlMin')
+		let lvlImg = level.querySelector('.lvlImg')
+		let lvlDesc = level.querySelector('.lvlDesc')
+
+		if (!lvlText.checkValidity() || !lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
+			quizDone.levels = []
+			return alert('Dados inválidos! Insira os dados corretamente!!')
+		} else {
+			quizDone.levels.push({
+				title: lvlText.value,
+				image: lvlImg.value,
+				text: lvlDesc.value,
+				minValue: lvlMin.value
+			})
+		}
+	}
+
+	if(hasLvl0() === false){
+		quizDone.levels = []
+		return alert('Dados inválidos! Insira os dados corretamente!!')
+	}
 
 	hideScreen('Seu quizz está pronto!', lvlScreen, 'accessQuiz', 'Acessar Quizz')
 	//createEnd()
@@ -293,6 +314,18 @@ function isHex(color) {
 		}
 	}
 	return true
+}
+
+function hasLvl0(){
+	let hasLvlMin = false
+		quizDone.levels.forEach(levelInfo => {
+			if (parseInt(levelInfo.minValue) === 0) {
+				hasLvlMin = true
+			}
+		})
+	if (hasLvlMin === false) {
+		return false
+	}
 }
 
 
