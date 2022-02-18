@@ -38,8 +38,10 @@ function startQuizz(response) {
 	// console.log(selectedQuizz);
 
 	currentQuizz = axios.get(`${API_QUIZZ}/${selectedQuizz}`)
-	const scren2 = document.querySelector('.screen-2')
-	const screenQuestion = document.querySelector('.desisto')
+	const scren2 = document.querySelector('.screen-2-header')
+	const screenQuestion = document.querySelector('.screen-2-quizz')
+	
+	// console.log(screenQuestion);
 	// scren2.innerHTML = ""
 
 	currentQuizz.then((response) => {
@@ -48,25 +50,57 @@ function startQuizz(response) {
 		scren2.innerHTML = `
         <figure>
             <p>${currentQuizz.title}</p>
-            <img src="${currentQuizz.image}" alt="">
+            <img src="${currentQuizz.image}" alt="imagem do quizz">
             <div class="gradient-2"></div>
         </figure>
-		`
 
-		currentQuizz.questions.forEach((question) => {
-			screenQuestion.innerHTML = `
-			<div class="title">${question.title}</div>
-            <div class="questions">
-                <span class="question">
-                    <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                        alt="">
-                    <span>carhorro</span>
-                </span>
+		`
+		
+		
+		let newQuestions = response.data.questions
+		
+		// console.log(newQuestions);
+
+		newQuestions.forEach((question) => {
+			// console.log(question);
+			screenQuestion.innerHTML += `
+			<section class="box-quizz">
+				<div class="title"  style="background-color:${question.color}">
+				${question.title}
+				</div>
+				<div class="questions"></div>
+			</section>
 			`
+			questionNum = question.answers.sort(() => Math.random() - 0.5)
+			console.log(questionNum);
+			
+			// for (let index = 0; index < questionNum.length; index++) {
+			// 	// console.log(index);
+
+			// 	document.querySelector(`.questions`).innerHTML+= `
+				
+			// 	<span class="question">
+			// 			<img src="${question.answers.image}" alt="">
+			// 			<span>${question.answers.text}</span>
+			// 		</span>
+			// 	`
+			//}
 		})
+		
+		jorge = document.querySelectorAll('.questions')
+		jorge = [...jorge]
+		questionNum.forEach(answer => {
+			console.log(answer.text, answer.image);
+		});
+		for (let i = 0; i < jorge.length; i++) {
+			// console.log(jorge[i])
+			
+			
+		}
 	})
 }
 
+let jorge = null;
 
 //Criação Quiz
 
@@ -141,7 +175,7 @@ function openQuestion(botao) {
 }
 
 // Inicialização// 
-// getAllQuizz()
+getAllQuizz()
 
 /*{
 	title: "Título do quizz",
