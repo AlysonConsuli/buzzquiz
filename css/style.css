@@ -203,7 +203,25 @@ article p {
     margin: 10px;
 }
 
-/*///////Criação Quiz///////////*/
+
+.correctAnswer{
+    color: #009C22;
+}
+
+.wrongAnswer{
+    color: #FF0B0B;
+}
+
+.selected{
+    opacity: 1;
+    /*só pra mexer no js*/
+}
+
+/*Criação Quiz*/
+
+.hidden {
+    display: none;
+}
 
 .createHeader {
     height: 89px;

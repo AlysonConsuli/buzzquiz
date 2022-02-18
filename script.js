@@ -1,5 +1,6 @@
 //   Variaveis Globais    //
 const API_QUIZZ = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+let scrollTo = 0;
 
 
 //  Renderização da Tela 1 //
@@ -60,47 +61,76 @@ function startQuizz(response) {
 		let newQuestions = response.data.questions
 
 		// console.log(newQuestions);
+		
+		
 
-		newQuestions.forEach((question) => {
-			// console.log(question);
+		newQuestions.forEach((question, indexd) => {
+			console.log(question);
+			// console.log(i);
 			screenQuestion.innerHTML += `
 			<section class="box-quizz">
 				<div class="title"  style="background-color:${question.color}">
 				${question.title}
 				</div>
-				<div class="questions"></div>
+				<div class="questions q${indexd}"></div>
 			</section>
 			`
 			questionNum = question.answers.sort(() => Math.random() - 0.5)
-			console.log(questionNum);
+			// console.log(question);
 
-			// for (let index = 0; index < questionNum.length; index++) {
-			// 	// console.log(index);
-
-			// 	document.querySelector(`.questions`).innerHTML+= `
-
-			// 	<span class="question">
-			// 			<img src="${question.answers.image}" alt="">
-			// 			<span>${question.answers.text}</span>
-			// 		</span>
-			// 	`
-			//}
+			questionNum.forEach((element,) => {
+				document.querySelector(`.questions.q${indexd}`).innerHTML += `
+				
+				<span class="question is${element.isCorrectAnswer}" onclick="checkCorret(this)">
+						<img src="${element.image}" alt="quizz answer photo">
+						<span>${element.text}</span>
+					</span>`
+			})
 		})
-
-		arrayTeste = document.querySelectorAll('.questions')
-		arrayTeste = [...arrayTeste]
-		questionNum.forEach(answer => {
-			console.log(answer.text, answer.image);
-		});
-		for (let i = 0; i < arrayTeste.length; i++) {
-			// console.log(arrayTeste[i])
-
-
-		}
 	})
 }
 
-let arrayTeste = null;
+function checkCorret(alternative) {
+	// console.log(response.classList);
+	// console.log(response.parentNode);
+	const teste = alternative.parentNode;
+	alternative.classList.add('selected')
+	const testeArray = teste.querySelectorAll('.question')
+	
+
+	if (alternative.classList[1] == 'istrue') {
+		alternative.classList.add('correctAnswer')
+		console.log('acertou! :D');
+		teste.style.pointerEvents = "none"
+
+		testeArray.forEach(element => { if(element.classList[2] != 'selected') {element.style.opacity ='0.3'}})
+
+		scrollTo++
+		console.log(scrollTo);
+		setTimeout(() => {
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
+			
+		},2000)
+		
+	}
+
+	else {
+		alternative.classList.add('wrongAnswer')
+		console.log('errou! :(');
+		teste.style.pointerEvents = "none"
+
+		testeArray.forEach(element => {if(element.classList[2] != 'selected') {element.style.opacity='0.3'}})
+
+		scrollTo++
+		console.log(scrollTo);
+		setTimeout(() => {
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
+			
+		},2000)
+	}
+
+
+}
 
 ////////////////Criação Quiz////////////////
 
