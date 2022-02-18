@@ -202,11 +202,7 @@ article p {
     margin: 10px;
 }
 
-/*Criação Quiz*/
-
-.hidden {
-    display: none;
-}
+/*///////Criação Quiz///////////*/
 
 .createHeader {
     height: 89px;
@@ -221,7 +217,7 @@ h3 {
     font-weight: 700;
 }
 
-.basicInfo {
+.basicInfoScreen {
     height: 256px;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -275,7 +271,6 @@ textarea:invalid{
     background-color: #FFE9E9;
 }
 
-.boxQuestion,
 .box {
     height: 74px;
     background-color: #FFFFFF;
@@ -289,6 +284,7 @@ textarea:invalid{
 
 ion-icon {
     font-size: 26px;
+    cursor: pointer;
 }
 
 .marginH3 {
@@ -296,12 +292,11 @@ ion-icon {
     margin-bottom: 14px;
 }
 
-.boxQuestion input,
 .box input {
     margin-bottom: 14px;
 }
 
-.boxQuestion input.margin32 {
+.box input.margin32 {
     margin-bottom: 32px;
 }
 
@@ -325,4 +320,11 @@ textarea{
     justify-content: center;
     align-items: flex-start;
     padding-top: 27px;
+}
+
+
+/*/////////Auxiliares/////////*/
+
+.hidden {
+    display: none;
 }
