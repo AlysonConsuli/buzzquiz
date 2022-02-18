@@ -208,12 +208,6 @@ article p {
     display: none;
 }
 
-/*.createQuiz{
-    background-color: #fafafa;
-    height: calc(100vh - 64px);
-    height: 100%;
-}*/
-
 .createHeader {
     height: 89px;
     display: flex;
@@ -234,7 +228,8 @@ h3 {
     padding: 21px 18px 0 16px;
 }
 
-input {
+input,
+textarea {
     height: 46px;
     width: 100%;
     display: flex;
@@ -275,11 +270,13 @@ button span {
     color: #FFF5F4;
 }
 
-input:invalid{
+input:invalid,
+textarea:invalid{
     background-color: #FFE9E9;
 }
 
-.boxQuestion {
+.boxQuestion,
+.box {
     height: 74px;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -294,20 +291,13 @@ ion-icon {
     font-size: 26px;
 }
 
-.config {
-    height: 100%;
-    background-color: #ffffff;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.boxQuestion h3 {
+.marginH3 {
     margin-top: 27px;
     margin-bottom: 14px;
 }
 
-.boxQuestion input {
+.boxQuestion input,
+.box input {
     margin-bottom: 14px;
 }
 
@@ -315,6 +305,24 @@ ion-icon {
     margin-bottom: 32px;
 }
 
-.questionOpen{
+.questionOpen,
+.lvlOpen{
     width: 100%;
+    margin-top: 14px;
+}
+
+textarea{
+    height: 177px;
+    border: 1px solid #D1D1D1;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.config {
+    height: 100%;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 27px;
 }
