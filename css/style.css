@@ -24,7 +24,7 @@ header {
     font-weight: 700;
     color: #FFFFFF;
     position: sticky;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
     cursor: default;
@@ -159,10 +159,11 @@ article p {
 .screen-2 section {
     width: 373px;
     margin: auto;
+    margin-top: 30px;
     /* background-color: #EC362D; */
 }
 
-.screen-2 section .title {
+.screen-2 .screen-2-quizz section .title {
     width: 94%;
     height: 5rem;
     background-color: rgb(35, 82, 14);
