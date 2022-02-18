@@ -203,6 +203,20 @@ article p {
     margin: 10px;
 }
 
+
+.correctAnswer{
+    color: #009C22;
+}
+
+.wrongAnswer{
+    color: #FF0B0B;
+}
+
+.selected{
+    opacity: 1;
+    /*só pra mexer no js*/
+}
+
 /*Criação Quiz*/
 
 .hidden {
