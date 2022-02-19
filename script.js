@@ -4,7 +4,7 @@ const API_QUIZZ = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
 
 // Variaveis de controle pra tela 2 //
 let scrollTo = 0;
-let questionsToEnd=null;
+let questionsToEnd = null;
 let numberQuestionsTotal = null;
 let numberCorrectAnswers = 0;
 let levelsQuizz
@@ -106,9 +106,10 @@ function startQuizz(response) {
 	})
 	setTimeout(() => {
 		questionsToEnd = document.querySelectorAll('.questions').length;
-		console.log(questionsToEnd); 
-		numberQuestionsTotal = questionsToEnd;} ,400)
-		
+		console.log(questionsToEnd);
+		numberQuestionsTotal = questionsToEnd;
+	}, 400)
+
 
 }
 
@@ -133,11 +134,11 @@ function checkCorret(alternative) {
 		// console.log(scrollTo);
 		setTimeout(() => {
 			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
-			
+
 		}, 2000)
 		numberCorrectAnswers++
 		questionsToEnd--
-		if (questionsToEnd === 0){acabou()}
+		if (questionsToEnd === 0) { acabou() }
 	}
 
 	else {
@@ -154,22 +155,23 @@ function checkCorret(alternative) {
 
 		}, 2000)
 		questionsToEnd--
-		if (questionsToEnd === 0){acabou()}
+		if (questionsToEnd === 0) { acabou() }
 	}
 }
 
-function acabou(){
+function acabou() {
 	setTimeout(() => {
 		let percentCorrect = Math.round((numberCorrectAnswers / numberQuestionsTotal) * 100)
 		console.log(percentCorrect);
-		
-		levelsQuizz = levelsQuizz.sort(function(a,b){
-			return a.minValue - b.minValue}
+
+		levelsQuizz = levelsQuizz.sort(function (a, b) {
+			return a.minValue - b.minValue
+		}
 		)
-			console.log(levelsQuizz);
-		levelsQuizz.forEach(level =>{
-			if(percentCorrect >= level.minValue){
-				
+		console.log(levelsQuizz);
+		levelsQuizz.forEach(level => {
+			if (percentCorrect >= level.minValue) {
+
 				levelImage = level.image
 				levelTitle = level.title;
 				levelText = level.text
@@ -180,7 +182,7 @@ function acabou(){
 			}
 
 		})
-		
+
 		const levelBox = document.querySelector('.screen-2-quizz')
 		levelBox.innerHTML += `
 			<section class="boxLevelQuizz">
@@ -191,7 +193,7 @@ function acabou(){
 			<div class="description"> <h6>${levelText}</h6> </div>
 			</section>
 		`
-		document.querySelector(".boxLevelQuizz").scrollIntoView({block:"center", behavior:"smooth"} )
+		document.querySelector(".boxLevelQuizz").scrollIntoView({ block: "center", behavior: "smooth" })
 	}, 2001)
 }
 ////////////////Criação Quiz////////////////
@@ -353,20 +355,45 @@ function saveLvls() {
 	postQuiz()
 }
 
+let userQuizId = 0
+let userQuizDone = null
+let allUserQuiz = []
+
 function postQuiz() {
 	const promise = axios.post(API_QUIZZ, quizDone)
 	promise.then(response => {
-		console.log(response.data)
-		console.log(response.data.id)
-		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${response.data.id})`, 'Acessar Quizz')
+		userQuizDone = response.data
+		userQuizId = response.data.id
+		saveUserQuiz(userQuizDone, userQuizId)
+		getAllUserQuiz()
+		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${userQuizId})`, 'Acessar Quizz')
 		createEnd()
 	})
+}
+
+let quizDoneSerialized = null
+
+function saveUserQuiz(quiz, id) {
+	quizDoneSerialized = JSON.stringify(quiz)
+	localStorage.setItem(`${id}`, quizDoneSerialized)
+}
+
+function getAllUserQuiz() {
+	allUserQuiz = []
+	for (let i = 0; i < localStorage.length; i++) {
+		let quizId = localStorage.key(i)
+		let userQuizSerialized = localStorage.getItem(quizId)
+		let userQuiz = JSON.parse(userQuizSerialized)
+		allUserQuiz.push(userQuiz)
+	}
+	//console.log(allUserQuiz)
+	return allUserQuiz
 }
 
 function createEnd() {
 	endScreen.innerHTML = `
     <article>
-		<img src="${quizDone.image}" alt=""/>
+		<img src="${quizDone.image}" alt="${quizDone.image}"/>
 		<div class="gradient">
 			<p>${quizDone.title}</p>
         </div>
@@ -544,5 +571,9 @@ document.addEventListener("keypress", function (e) {
 		enviar.click()
 	}
 })
+
+localStorage.removeItem('i')
+localStorage.clear()
+localStorage.key(i)
 
 */
