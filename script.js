@@ -13,11 +13,41 @@ let levelImage = null;
 let levelTitle = null;
 let levelText = null;
 
+
+// Render tela se tem quizz salvo ou nao//
+
+setTimeout(getAllUserQuiz, 400)
+setTimeout(renderAllUserQuizz, 401)
+
+function renderAllUserQuizz() {
+	if (allUserQuiz.length !== 0) {
+		document.querySelector('.noQuizz').classList.add('hidden')
+		document.querySelector('.hasUserQuizz').classList.remove('hidden')
+
+		allUserQuiz.forEach((x) => {
+			console.log(x);
+
+			document.querySelector('.hasUserQuizz').innerHTML += `
+
+			<article onclick="startQuizz(${x.id})" id="${x.id}">
+				<img src="${x.image}" alt="quizz tittle image"/>
+				<div class="gradient">
+					<p class="title">${x.title}</p>
+				</div>
+	    	</article>	
+			`
+		})
+	}
+
+}
+
+
+
 //  Renderização da Tela 1 //
 function getAllQuizz() {
 	const promise = axios.get(API_QUIZZ);
 	promise.then(response => {
-		// console.log(response)
+		console.log(response)
 		renderAllQuizz(response.data)
 	});
 }
@@ -28,13 +58,18 @@ function renderAllQuizz(quizzes) {
 	quizzes.forEach(quizz => {
 		all_Quizz.innerHTML += `
         <article onclick="startQuizz(${quizz.id})" id="${quizz.id}">
-		    <img src="${quizz.image}" alt=""/>
+		    <img src="${quizz.image}" alt="quizz tittle image"/>
 		    <div class="gradient">
 		    <p>${quizz.title}</p>
             </div>
 	    </article>
         `
 	})
+}
+
+function showScreen3() {
+	document.querySelector('main').classList.add('hidden')
+	document.querySelector('.createQuiz').classList.remove('hidden')
 }
 
 //  Renderização da Tela 2 //
@@ -371,7 +406,7 @@ function postQuiz() {
 	})
 }
 
-let quizDoneSerialized = null
+let quizDoneSerialized = null;
 
 function saveUserQuiz(quiz, id) {
 	quizDoneSerialized = JSON.stringify(quiz)

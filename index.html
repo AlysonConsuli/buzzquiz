@@ -14,12 +14,16 @@
 
 <body>
     <header>BuzzQuizz</header>
-    <main class="hidden">
+    <main class="">
         <section class="noQuizz">
             <p> não criou nenhum quizz ainda :(</p>
-            <button>Criar Quizz</button>
+            <button onclick="showScreen3()">Criar Quizz</button>
         </section>
-
+        
+        <section class="hasUserQuizz">
+            <p> Seus Quizzes</p>
+            <ion-icon name="add-circle" onclick="showScreen3()"></ion-icon>
+        </section>
         <h2>Todos os Quizzes</h2>
         <section class="allQuizz">
             <!-- Carregado dinamicamente via JS -->
@@ -117,7 +121,7 @@
 
     <!---------Criação Quiz--------->
 
-    <div class="createQuiz">
+    <div class="createQuiz hidden">
         <div class="createHeader">
             <h3>Comece pelo começo</h3>
         </div>
