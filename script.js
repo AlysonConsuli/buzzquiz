@@ -471,24 +471,12 @@ function createEnd() {
 	`
 	createQuiz.innerHTML += `
 	<div class="finalButton">
-        <span onclick="backHome()">Voltar pra home</span>
+        <span onclick="reload()">Voltar pra home</span>
     </div>
 	`
 	const lastBtn = createQuiz.querySelector('button')
 	lastBtn.classList.add('reduceBtn')
 }
-
-
-function backHome() {
-	//window.location.reload() //getAllQuizz()
-	const promise = axios.get(API_QUIZZ);
-	promise.then(response => {
-		renderAllQuizz(response.data)
-		createQuiz.classList.add('hidden')
-		mainScreen.classList.remove('hidden')
-	});
-}
-
 
 
 ///////////////Funções Auxiliares da Criação////////////
@@ -631,7 +619,15 @@ getAllQuizz()
 	]
 }
 
-
+function backHome() {
+	//window.location.reload() //getAllQuizz()
+	const promise = axios.get(API_QUIZZ);
+	promise.then(response => {
+		renderAllQuizz(response.data)
+		createQuiz.classList.add('hidden')
+		mainScreen.classList.remove('hidden')
+	});
+}
 
 document.addEventListener("keypress", function (e) {
 	if (e.key === "Enter") {
