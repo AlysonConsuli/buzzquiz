@@ -9,6 +9,10 @@ let numberQuestionsTotal = null;
 let numberCorrectAnswers = 0;
 let levelsQuizz
 
+let levelImage = null;
+let levelTitle = null;
+let levelText = null;
+
 //  Renderização da Tela 1 //
 function getAllQuizz() {
 	const promise = axios.get(API_QUIZZ);
@@ -158,17 +162,36 @@ function acabou(){
 	setTimeout(() => {
 		let percentCorrect = Math.round((numberCorrectAnswers / numberQuestionsTotal) * 100)
 		console.log(percentCorrect);
-
+		
+		levelsQuizz = levelsQuizz.sort(function(a,b){
+			return a.minValue - b.minValue}
+		)
+			console.log(levelsQuizz);
 		levelsQuizz.forEach(level =>{
 			if(percentCorrect >= level.minValue){
-				console.log(level);
-				console.log(level.text);
+				
+				levelImage = level.image
+				levelTitle = level.title;
+				levelText = level.text
+				levelPercent = level.minValue;
+				console.log(levelImage);
+				console.log(levelTitle);
+				console.log(levelText);
 			}
 
 		})
-
-
-
+		
+		const levelBox = document.querySelector('.screen-2-quizz')
+		levelBox.innerHTML += `
+			<section class="boxLevelQuizz">
+			<div class="titlefinal">
+				<h5>${percentCorrect}% de acerto: ${levelTitle} </h5>
+			</div>
+			<img src="${levelImage}" alt="photo level answer"> 
+			<div class="description"> <h6>${levelText}</h6> </div>
+			</section>
+		`
+		document.querySelector(".boxLevelQuizz").scrollIntoView({block:"center", behavior:"smooth"} )
 	}, 2001)
 }
 ////////////////Criação Quiz////////////////

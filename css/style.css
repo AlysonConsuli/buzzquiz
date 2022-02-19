@@ -220,6 +220,52 @@ article p {
     /*só pra mexer no js*/
 }
 
+
+/*Resposta da tela 2*/
+
+/* .boxLevelQuizz{
+    width: 373px;
+    margin: auto;
+    margin-top: 30px;
+} */
+
+.boxLevelQuizz .titlefinal{
+    height: 5.4rem;
+    width: 94%;
+    background-color: #EC362D;
+    margin: auto;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxLevelQuizz .titlefinal h5{
+    font-size: 19px;
+    font-weight: 700;
+    margin-right: 2px;
+    color: #ffffff;
+    
+}
+
+.boxLevelQuizz img{
+    width: 350px;
+    height: 255px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+}
+.boxLevelQuizz div.description{
+    margin: 0 11px;
+    font-weight: 700;
+    font-size: 17px;
+    color: #484848;
+    line-height: 19px;
+    overflow-x: hidden;
+}
+
 /*Criação Quiz*/
 
 .hidden {
