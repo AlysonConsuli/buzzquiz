@@ -1,13 +1,19 @@
 //   Variaveis Globais    //
 const API_QUIZZ = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
-let scrollTo = 0;
 
+
+// Variaveis de controle pra tela 2 //
+let scrollTo = 0;
+let questionsToEnd=null;
+let numberQuestionsTotal = null;
+let numberCorrectAnswers = 0;
+let levelsQuizz
 
 //  Renderização da Tela 1 //
 function getAllQuizz() {
 	const promise = axios.get(API_QUIZZ);
 	promise.then(response => {
-		console.log(response)
+		// console.log(response)
 		renderAllQuizz(response.data)
 	});
 }
@@ -31,6 +37,7 @@ function renderAllQuizz(quizzes) {
 let currentQuizz = null;
 
 function startQuizz(response) {
+	console.log(response);
 	const mainScreen = document.querySelector('main')
 	mainScreen.classList.add('hidden')
 	let selectedQuizz = response.id
@@ -42,12 +49,15 @@ function startQuizz(response) {
 	const scren2 = document.querySelector('.screen-2-header')
 	const screenQuestion = document.querySelector('.screen-2-quizz')
 
+
 	// console.log(screenQuestion);
 	// scren2.innerHTML = ""
 
 	currentQuizz.then((response) => {
 		currentQuizz = response.data
-
+		levelsQuizz = currentQuizz.levels
+		console.log(levelsQuizz);
+		console.log(currentQuizz);
 		scren2.innerHTML = `
         <figure>
             <p>${currentQuizz.title}</p>
@@ -61,11 +71,11 @@ function startQuizz(response) {
 		let newQuestions = response.data.questions
 
 		// console.log(newQuestions);
-		
-		
+
+
 
 		newQuestions.forEach((question, indexd) => {
-			console.log(question);
+			// console.log(question);
 			// console.log(i);
 			screenQuestion.innerHTML += `
 			<section class="box-quizz">
@@ -88,7 +98,15 @@ function startQuizz(response) {
 			})
 		})
 	})
+	setTimeout(() => {
+		questionsToEnd = document.querySelectorAll('.questions').length;
+		console.log(questionsToEnd); 
+		numberQuestionsTotal = questionsToEnd;} ,400)
+		
+
 }
+
+
 
 function checkCorret(alternative) {
 	// console.log(response.classList);
@@ -96,22 +114,24 @@ function checkCorret(alternative) {
 	const teste = alternative.parentNode;
 	alternative.classList.add('selected')
 	const testeArray = teste.querySelectorAll('.question')
-	
+
 
 	if (alternative.classList[1] == 'istrue') {
 		alternative.classList.add('correctAnswer')
 		console.log('acertou! :D');
 		teste.style.pointerEvents = "none"
 
-		testeArray.forEach(element => { if(element.classList[2] != 'selected') {element.style.opacity ='0.3'}})
+		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
-		console.log(scrollTo);
+		// console.log(scrollTo);
 		setTimeout(() => {
-			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
 			
-		},2000)
-		
+		}, 2000)
+		numberCorrectAnswers++
+		questionsToEnd--
+		if (questionsToEnd === 0){acabou()}
 	}
 
 	else {
@@ -119,19 +139,36 @@ function checkCorret(alternative) {
 		console.log('errou! :(');
 		teste.style.pointerEvents = "none"
 
-		testeArray.forEach(element => {if(element.classList[2] != 'selected') {element.style.opacity='0.3'}})
+		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
 		console.log(scrollTo);
 		setTimeout(() => {
-			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
-			
-		},2000)
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
+
+		}, 2000)
+		questionsToEnd--
+		if (questionsToEnd === 0){acabou()}
 	}
-
-
 }
 
+function acabou(){
+	setTimeout(() => {
+		let percentCorrect = Math.round((numberCorrectAnswers / numberQuestionsTotal) * 100)
+		console.log(percentCorrect);
+
+		levelsQuizz.forEach(level =>{
+			if(percentCorrect >= level.minValue){
+				console.log(level);
+				console.log(level.text);
+			}
+
+		})
+
+
+
+	}, 2001)
+}
 ////////////////Criação Quiz////////////////
 
 const quizDone = {
@@ -283,7 +320,7 @@ function saveLvls() {
 		}
 	}
 
-	if(hasLvl0() === false){
+	if (hasLvl0() === false) {
 		quizDone.levels = []
 		return alert('Dados inválidos! Insira os dados corretamente!!')
 	}
@@ -346,13 +383,13 @@ function isHex(color) {
 	return true
 }
 
-function hasLvl0(){
+function hasLvl0() {
 	let hasLvlMin = false
-		quizDone.levels.forEach(levelInfo => {
-			if (parseInt(levelInfo.minValue) === 0) {
-				hasLvlMin = true
-			}
-		})
+	quizDone.levels.forEach(levelInfo => {
+		if (parseInt(levelInfo.minValue) === 0) {
+			hasLvlMin = true
+		}
+	})
 	if (hasLvlMin === false) {
 		return false
 	}

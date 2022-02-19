@@ -102,6 +102,7 @@ article p {
     bottom: 10%;
     left: 4%;
     max-width: 80%;
+    overflow: hidden;
 }
 
 .gradient {
@@ -144,6 +145,7 @@ article p {
     height: 100%;
     align-items: center;
     font-size: 19px;
+    overflow: hidden;
 }
 
 .gradient-2 {
@@ -194,6 +196,7 @@ article p {
 
 .screen-2 section .questions .question span{
  margin-left: 10px;
+ overflow: hidden;
 }
 
 .screen-2 section .questions img{
