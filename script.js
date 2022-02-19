@@ -222,7 +222,8 @@ let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
 
-	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
+	if (checkURL(quizImg.value) === false || !quizTitle.checkValidity() || 
+	!quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
 	} else {
 		quizDone.title = quizTitle.value
@@ -290,10 +291,14 @@ function saveQuestions() {
 			}
 		]
 
-		if (isHex(questionColor.value) === false || !questionText.checkValidity() || !questionColor.checkValidity() || !correctText.checkValidity() || !incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+		if (isHex(questionColor.value) === false || checkURL(correctImg.value) === false || 
+			checkURL(incorrectImg1.value) === false || !questionText.checkValidity() || 
+			!questionColor.checkValidity() || !correctText.checkValidity() || 
+			!incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+
 			quizDone.questions = []
 			return alert('Dados inválidos! Insira os dados corretamente!')
-			//i = questions.length
+						
 		} else {
 			quizDone.questions.push({
 				title: questionText.value,
@@ -334,7 +339,8 @@ function saveLvls() {
 		let lvlImg = level.querySelector('.lvlImg')
 		let lvlDesc = level.querySelector('.lvlDesc')
 
-		if (!lvlText.checkValidity() || !lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
+		if (checkURL(lvlImg.value) === false || !lvlText.checkValidity() || 
+		!lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
 			quizDone.levels = []
 			return alert('Dados inválidos! Insira os dados corretamente!!')
 		} else {
@@ -355,15 +361,11 @@ function saveLvls() {
 	postQuiz()
 }
 
-let userQuizId = 0
-let userQuizDone = null
-let allUserQuiz = []
-
 function postQuiz() {
 	const promise = axios.post(API_QUIZZ, quizDone)
 	promise.then(response => {
-		userQuizDone = response.data
-		userQuizId = response.data.id
+		let userQuizDone = response.data
+		let userQuizId = response.data.id
 		saveUserQuiz(userQuizDone, userQuizId)
 		getAllUserQuiz()
 		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${userQuizId})`, 'Acessar Quizz')
@@ -371,15 +373,13 @@ function postQuiz() {
 	})
 }
 
-let quizDoneSerialized = null
-
 function saveUserQuiz(quiz, id) {
-	quizDoneSerialized = JSON.stringify(quiz)
+	let quizDoneSerialized = JSON.stringify(quiz)
 	localStorage.setItem(`${id}`, quizDoneSerialized)
 }
 
 function getAllUserQuiz() {
-	allUserQuiz = []
+	let allUserQuiz = []
 	for (let i = 0; i < localStorage.length; i++) {
 		let quizId = localStorage.key(i)
 		let userQuizSerialized = localStorage.getItem(quizId)
@@ -410,8 +410,7 @@ function createEnd() {
 
 
 function backHome() {
-	//window.location.reload()
-	//getAllQuizz()
+	//window.location.reload() //getAllQuizz()
 	const promise = axios.get(API_QUIZZ);
 	promise.then(response => {
 		renderAllQuizz(response.data)
@@ -423,6 +422,10 @@ function backHome() {
 
 
 ///////////////Funções Auxiliares da Criação////////////
+
+function checkURL(url) {
+	return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
 
 function hideScreen(text, screen, btn, textBtn) {
 	h3.innerText = text
