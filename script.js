@@ -222,8 +222,8 @@ let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
 
-	if (checkURL(quizImg.value) === false || !quizTitle.checkValidity() || 
-	!quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
+	if (checkURL(quizImg.value) === false || !quizTitle.checkValidity() ||
+		!quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
 	} else {
 		quizDone.title = quizTitle.value
@@ -252,11 +252,11 @@ function createQuestions() {
 				<input class="incorrectText1" type="text" placeholder="Resposta incorreta 1" required></input>
 				<input class="incorrectImg1 margin32" type="url" placeholder="URL da imagem 1" required></input>
 			
-				<input type="text" placeholder="Resposta incorreta 2"></input>
-				<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
+				<input class="incorrectText2" type="text" placeholder="Resposta incorreta 2"></input>
+				<input class="incorrectImg2 margin32" type="url" placeholder="URL da imagem 2"></input>
 			
-				<input type="text" placeholder="Resposta incorreta 3"></input>
-				<input type="url" placeholder="URL da imagem 3"></input>
+				<input class="incorrectText3" type="text" placeholder="Resposta incorreta 3"></input>
+				<input class="incorrectImg3" type="url" placeholder="URL da imagem 3"></input>
 			</div>
 		</div>
 		`
@@ -278,6 +278,12 @@ function saveQuestions() {
 		let incorrectText1 = question.querySelector('.incorrectText1')
 		let incorrectImg1 = question.querySelector('.incorrectImg1')
 
+		let incorrectText2 = question.querySelector('.incorrectText2')
+		let incorrectImg2 = question.querySelector('.incorrectImg2')
+
+		let incorrectText3 = question.querySelector('.incorrectText3')
+		let incorrectImg3 = question.querySelector('.incorrectImg3')
+
 		let answers = [
 			{
 				text: correctText.value,
@@ -291,14 +297,41 @@ function saveQuestions() {
 			}
 		]
 
-		if (isHex(questionColor.value) === false || checkURL(correctImg.value) === false || 
-			checkURL(incorrectImg1.value) === false || !questionText.checkValidity() || 
-			!questionColor.checkValidity() || !correctText.checkValidity() || 
+		if (incorrectText2.value !== '' || incorrectImg2.value !== '') {
+			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity() && 
+			incorrectText2.value !== '' && incorrectImg2.value !== '') {
+				answers.push({
+					text: incorrectText2.value,
+					image: incorrectImg2.value,
+					isCorrectAnswer: false
+				})
+			} else {
+				quizDone.questions = []
+				return alert('Dados inválidos! Insira os dados corretamente!')
+			}
+		}
+		if (incorrectText3.value !== '' || incorrectImg3.value !== '') {
+			if (checkURL(incorrectImg3.value) === true && incorrectImg3.checkValidity() &&
+			incorrectText3.value !== '' && incorrectImg3.value !== '') {
+				answers.push({
+					text: incorrectText3.value,
+					image: incorrectImg3.value,
+					isCorrectAnswer: false
+				})
+			} else {
+				quizDone.questions = []
+				return alert('Dados inválidos! Insira os dados corretamente!')
+			}
+		}
+
+		if (isHex(questionColor.value) === false || checkURL(correctImg.value) === false ||
+			checkURL(incorrectImg1.value) === false || !questionText.checkValidity() ||
+			!questionColor.checkValidity() || !correctText.checkValidity() ||
 			!incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
 
 			quizDone.questions = []
 			return alert('Dados inválidos! Insira os dados corretamente!')
-						
+
 		} else {
 			quizDone.questions.push({
 				title: questionText.value,
@@ -339,8 +372,8 @@ function saveLvls() {
 		let lvlImg = level.querySelector('.lvlImg')
 		let lvlDesc = level.querySelector('.lvlDesc')
 
-		if (checkURL(lvlImg.value) === false || !lvlText.checkValidity() || 
-		!lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
+		if (checkURL(lvlImg.value) === false || !lvlText.checkValidity() ||
+			!lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
 			quizDone.levels = []
 			return alert('Dados inválidos! Insira os dados corretamente!!')
 		} else {
