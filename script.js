@@ -17,7 +17,7 @@ function renderAllQuizz(quizzes) {
 	all_Quizz.innerHTML = ""
 	quizzes.forEach(quizz => {
 		all_Quizz.innerHTML += `
-        <article onclick="startQuizz(this)" id="${quizz.id}">
+        <article onclick="startQuizz(${quizz.id})" id="${quizz.id}">
 		    <img src="${quizz.image}" alt=""/>
 		    <div class="gradient">
 		    <p>${quizz.title}</p>
@@ -30,15 +30,17 @@ function renderAllQuizz(quizzes) {
 //  Renderização da Tela 2 //
 let currentQuizz = null;
 
+const mainScreen = document.querySelector('main')
 function startQuizz(response) {
-	const mainScreen = document.querySelector('main')
+	console.log(response)
 	mainScreen.classList.add('hidden')
-	let selectedQuizz = response.id
+	createQuiz.classList.add('hidden')
+	//let selectedQuizz = response.id
 
 	// console.log(response);
 	// console.log(selectedQuizz);
 
-	currentQuizz = axios.get(`${API_QUIZZ}/${selectedQuizz}`)
+	currentQuizz = axios.get(`${API_QUIZZ}/${response}`)
 	const scren2 = document.querySelector('.screen-2-header')
 	const screenQuestion = document.querySelector('.screen-2-quizz')
 
@@ -61,8 +63,8 @@ function startQuizz(response) {
 		let newQuestions = response.data.questions
 
 		// console.log(newQuestions);
-		
-		
+
+
 
 		newQuestions.forEach((question, indexd) => {
 			console.log(question);
@@ -96,22 +98,22 @@ function checkCorret(alternative) {
 	const teste = alternative.parentNode;
 	alternative.classList.add('selected')
 	const testeArray = teste.querySelectorAll('.question')
-	
+
 
 	if (alternative.classList[1] == 'istrue') {
 		alternative.classList.add('correctAnswer')
 		console.log('acertou! :D');
 		teste.style.pointerEvents = "none"
 
-		testeArray.forEach(element => { if(element.classList[2] != 'selected') {element.style.opacity ='0.3'}})
+		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
 		console.log(scrollTo);
 		setTimeout(() => {
-			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
-			
-		},2000)
-		
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
+
+		}, 2000)
+
 	}
 
 	else {
@@ -119,14 +121,14 @@ function checkCorret(alternative) {
 		console.log('errou! :(');
 		teste.style.pointerEvents = "none"
 
-		testeArray.forEach(element => {if(element.classList[2] != 'selected') {element.style.opacity='0.3'}})
+		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
 		console.log(scrollTo);
 		setTimeout(() => {
-			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({block:"center", behavior:"smooth" })
-			
-		},2000)
+			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
+
+		}, 2000)
 	}
 
 
@@ -164,7 +166,7 @@ function saveBasicInfo() {
 		quizDone.title = quizTitle.value
 		quizDone.image = quizImg.value
 
-		hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
+		hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions()', 'Prosseguir pra criar níveis')
 		createQuestions()
 	}
 }
@@ -238,7 +240,7 @@ function saveQuestions() {
 			})
 		}
 	}
-	hideScreen('Agora, decida os níveis!', questionScreen, 'saveLvls', 'Finalizar Quizz')
+	hideScreen('Agora, decida os níveis!', questionScreen, 'saveLvls()', 'Finalizar Quizz')
 	createLevels()
 }
 
@@ -288,29 +290,49 @@ function saveLvls() {
 		return alert('Dados inválidos! Insira os dados corretamente!!')
 	}
 
-	hideScreen('Seu quizz está pronto!', lvlScreen, 'accessQuiz', 'Acessar Quizz')
-	createEnd()
-
+	postQuiz()
 }
 
+function postQuiz() {
+	const promise = axios.post(API_QUIZZ, quizDone)
+	promise.then(response => {
+		console.log(response.data)
+		console.log(response.data.id)
+		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${response.data.id})`, 'Acessar Quizz')
+		createEnd()
+	})
+}
 
 function createEnd() {
 	endScreen.innerHTML = `
-	<div class="finalImg">
-	</div>
+    <article>
+		<img src="${quizDone.image}" alt=""/>
+		<div class="gradient">
+			<p>${quizDone.title}</p>
+        </div>
+	</article>
 	`
 	createQuiz.innerHTML += `
-	<div class="finalButton" onclick="backHome()">
-        <span>Voltar pra home</span>
+	<div class="finalButton">
+        <span onclick="backHome()">Voltar pra home</span>
     </div>
 	`
 	const lastBtn = createQuiz.querySelector('button')
 	lastBtn.classList.add('reduceBtn')
 }
 
-//function accessQuiz(){}
 
-//function backHome(){}
+function backHome() {
+	//window.location.reload()
+	//getAllQuizz()
+	const promise = axios.get(API_QUIZZ);
+	promise.then(response => {
+		renderAllQuizz(response.data)
+		createQuiz.classList.add('hidden')
+		mainScreen.classList.remove('hidden')
+	});
+}
+
 
 
 ///////////////Funções Auxiliares da Criação////////////
@@ -318,7 +340,7 @@ function createEnd() {
 function hideScreen(text, screen, btn, textBtn) {
 	h3.innerText = text
 	screen.classList.add('hidden')
-	buttonCreateQuiz.setAttribute("onclick", `${btn}()`);
+	buttonCreateQuiz.setAttribute("onclick", btn);
 	buttonCreateQuiz.innerHTML = `<span>${textBtn}</span>`
 }
 
@@ -375,8 +397,6 @@ function hasLvl0() {
 		return false
 	}
 }
-
-
 
 
 
