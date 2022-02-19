@@ -483,8 +483,10 @@ function saveUserQuiz(quiz, id) {
 	localStorage.setItem(`${id}`, quizDoneSerialized)
 }
 
+let allUserQuiz =[]
+
 function getAllUserQuiz() {
-	let allUserQuiz = []
+	allUserQuiz = []
 	for (let i = 0; i < localStorage.length; i++) {
 		let quizId = localStorage.key(i)
 		let userQuizSerialized = localStorage.getItem(quizId)
