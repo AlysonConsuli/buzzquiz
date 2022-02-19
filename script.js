@@ -23,7 +23,7 @@ function renderAllQuizz(quizzes) {
 	all_Quizz.innerHTML = ""
 	quizzes.forEach(quizz => {
 		all_Quizz.innerHTML += `
-        <article onclick="startQuizz(this)" id="${quizz.id}">
+        <article onclick="startQuizz(${quizz.id})" id="${quizz.id}">
 		    <img src="${quizz.image}" alt=""/>
 		    <div class="gradient">
 		    <p>${quizz.title}</p>
@@ -36,16 +36,18 @@ function renderAllQuizz(quizzes) {
 //  Renderização da Tela 2 //
 let currentQuizz = null;
 
+const mainScreen = document.querySelector('main')
 function startQuizz(response) {
 	console.log(response);
 	const mainScreen = document.querySelector('main')
 	mainScreen.classList.add('hidden')
-	let selectedQuizz = response.id
+	createQuiz.classList.add('hidden')
+	//let selectedQuizz = response.id
 
 	// console.log(response);
 	// console.log(selectedQuizz);
 
-	currentQuizz = axios.get(`${API_QUIZZ}/${selectedQuizz}`)
+	currentQuizz = axios.get(`${API_QUIZZ}/${response}`)
 	const scren2 = document.querySelector('.screen-2-header')
 	const screenQuestion = document.querySelector('.screen-2-quizz')
 
@@ -190,20 +192,20 @@ const quizImg = createQuiz.querySelector('input:nth-child(2)')
 const numberQuestions = createQuiz.querySelector('input:nth-child(3)')
 const numberLvls = createQuiz.querySelector('input:nth-child(4)')
 
-const h3 = createQuiz.querySelector('h3')
-const buttonCreateQuiz = createQuiz.querySelector('button')
+let h3 = createQuiz.querySelector('h3')
+let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
 
 	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
-	} else { }
-	quizDone.title = quizTitle.value
-	quizDone.image = quizImg.value
+	} else {
+		quizDone.title = quizTitle.value
+		quizDone.image = quizImg.value
 
-	hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions', 'Prosseguir pra criar níveis')
-	createQuestions()
-
+		hideScreen('Crie suas perguntas', basicInfoScreen, 'saveQuestions()', 'Prosseguir pra criar níveis')
+		createQuestions()
+	}
 }
 
 function createQuestions() {
@@ -275,7 +277,7 @@ function saveQuestions() {
 			})
 		}
 	}
-	hideScreen('Agora, decida os níveis!', questionScreen, 'saveLvls', 'Finalizar Quizz')
+	hideScreen('Agora, decida os níveis!', questionScreen, 'saveLvls()', 'Finalizar Quizz')
 	createLevels()
 }
 
@@ -325,9 +327,47 @@ function saveLvls() {
 		return alert('Dados inválidos! Insira os dados corretamente!!')
 	}
 
-	hideScreen('Seu quizz está pronto!', lvlScreen, 'accessQuiz', 'Acessar Quizz')
-	//createEnd()
+	postQuiz()
+}
 
+function postQuiz() {
+	const promise = axios.post(API_QUIZZ, quizDone)
+	promise.then(response => {
+		console.log(response.data)
+		console.log(response.data.id)
+		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${response.data.id})`, 'Acessar Quizz')
+		createEnd()
+	})
+}
+
+function createEnd() {
+	endScreen.innerHTML = `
+    <article>
+		<img src="${quizDone.image}" alt=""/>
+		<div class="gradient">
+			<p>${quizDone.title}</p>
+        </div>
+	</article>
+	`
+	createQuiz.innerHTML += `
+	<div class="finalButton">
+        <span onclick="backHome()">Voltar pra home</span>
+    </div>
+	`
+	const lastBtn = createQuiz.querySelector('button')
+	lastBtn.classList.add('reduceBtn')
+}
+
+
+function backHome() {
+	//window.location.reload()
+	//getAllQuizz()
+	const promise = axios.get(API_QUIZZ);
+	promise.then(response => {
+		renderAllQuizz(response.data)
+		createQuiz.classList.add('hidden')
+		mainScreen.classList.remove('hidden')
+	});
 }
 
 
@@ -337,7 +377,7 @@ function saveLvls() {
 function hideScreen(text, screen, btn, textBtn) {
 	h3.innerText = text
 	screen.classList.add('hidden')
-	buttonCreateQuiz.setAttribute("onclick", `${btn}()`);
+	buttonCreateQuiz.setAttribute("onclick", btn);
 	buttonCreateQuiz.innerHTML = `<span>${textBtn}</span>`
 }
 
@@ -394,8 +434,6 @@ function hasLvl0() {
 		return false
 	}
 }
-
-
 
 
 
