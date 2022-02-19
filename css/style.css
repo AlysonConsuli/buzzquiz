@@ -224,6 +224,7 @@ article p {
     margin: auto;
     margin-top: 30px;
     /* background-color: #EC362D; */
+    margin-bottom: 40px;
 }
 
 .screen-2 .screen-2-quizz section .title {
@@ -367,7 +368,8 @@ textarea {
     font-family: 'Roboto';
 }
 
-.createQuiz button {
+.createQuiz button,
+.screen-2-quizz button {
     border: none;
     border-radius: 15px;
     height: 54px;
@@ -459,9 +461,11 @@ textarea{
     align-items: center;
     font-size: 18px;
     color: #818181;
+    margin-bottom: 20px;
 }
 
-.createQuiz .reduceBtn{
+.createQuiz .reduceBtn,
+.screen-2-quizz .reduceBtn{
     /*margin: 24px 77px 9px 77px;
     width: calc(100% - 154px);
     max-width: 220px;*/

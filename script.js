@@ -73,11 +73,15 @@ function showScreen3() {
 }
 
 //  Renderização da Tela 2 //
+const scren2 = document.querySelector('.screen-2-header')
+const screenQuestion = document.querySelector('.screen-2-quizz')
 let currentQuizz = null;
+let selectedQuiz = 0
 
 const mainScreen = document.querySelector('main')
 function startQuizz(response) {
-	console.log(response);
+	selectedQuiz = response
+	//console.log(response);
 	const mainScreen = document.querySelector('main')
 	mainScreen.classList.add('hidden')
 	createQuiz.classList.add('hidden')
@@ -87,8 +91,8 @@ function startQuizz(response) {
 	// console.log(selectedQuizz);
 
 	currentQuizz = axios.get(`${API_QUIZZ}/${response}`)
-	const scren2 = document.querySelector('.screen-2-header')
-	const screenQuestion = document.querySelector('.screen-2-quizz')
+	//const scren2 = document.querySelector('.screen-2-header')
+	//const screenQuestion = document.querySelector('.screen-2-quizz')
 
 
 	// console.log(screenQuestion);
@@ -228,9 +232,42 @@ function acabou() {
 			<div class="description"> <h6>${levelText}</h6> </div>
 			</section>
 		`
-		document.querySelector(".boxLevelQuizz").scrollIntoView({ block: "center", behavior: "smooth" })
+		restartBtn()
+		screenQuestion.querySelector(".finalButton").scrollIntoView({ block: "center", behavior: "smooth" })
 	}, 2001)
+
 }
+
+function restartBtn(){
+	screenQuestion.innerHTML += `
+	<button class="reduceBtn" onclick=restart()>
+        <span>Reiniciar Quizz</span>
+    </button>
+	<div class="finalButton">
+        <span onclick="reload()">Voltar pra home</span>
+    </div>
+	`
+}
+
+const reload = () => window.location.reload()
+
+function restart(){
+	screenQuestion.innerHTML = ""
+	scrollTo = 0;
+	questionsToEnd = null;
+	numberCorrectAnswers = 0;
+	numberQuestionsTotal = null
+	startQuizz(selectedQuiz)
+	scroll('screen-2-header')
+}
+
+function scroll(box){
+	let elementoQueQueroQueApareca = document.querySelector(`.${box}`);
+	elementoQueQueroQueApareca.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+
+
 ////////////////Criação Quiz////////////////
 
 const quizDone = {
@@ -257,7 +294,8 @@ let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
 
-	if (!quizTitle.checkValidity() || !quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
+	if (checkURL(quizImg.value) === false || !quizTitle.checkValidity() ||
+		!quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
 	} else {
 		quizDone.title = quizTitle.value
@@ -286,11 +324,11 @@ function createQuestions() {
 				<input class="incorrectText1" type="text" placeholder="Resposta incorreta 1" required></input>
 				<input class="incorrectImg1 margin32" type="url" placeholder="URL da imagem 1" required></input>
 			
-				<input type="text" placeholder="Resposta incorreta 2"></input>
-				<input class="margin32" type="url" placeholder="URL da imagem 2"></input>
+				<input class="incorrectText2" type="text" placeholder="Resposta incorreta 2"></input>
+				<input class="incorrectImg2 margin32" type="url" placeholder="URL da imagem 2"></input>
 			
-				<input type="text" placeholder="Resposta incorreta 3"></input>
-				<input type="url" placeholder="URL da imagem 3"></input>
+				<input class="incorrectText3" type="text" placeholder="Resposta incorreta 3"></input>
+				<input class="incorrectImg3" type="url" placeholder="URL da imagem 3"></input>
 			</div>
 		</div>
 		`
@@ -312,6 +350,12 @@ function saveQuestions() {
 		let incorrectText1 = question.querySelector('.incorrectText1')
 		let incorrectImg1 = question.querySelector('.incorrectImg1')
 
+		let incorrectText2 = question.querySelector('.incorrectText2')
+		let incorrectImg2 = question.querySelector('.incorrectImg2')
+
+		let incorrectText3 = question.querySelector('.incorrectText3')
+		let incorrectImg3 = question.querySelector('.incorrectImg3')
+
 		let answers = [
 			{
 				text: correctText.value,
@@ -325,10 +369,41 @@ function saveQuestions() {
 			}
 		]
 
-		if (isHex(questionColor.value) === false || !questionText.checkValidity() || !questionColor.checkValidity() || !correctText.checkValidity() || !incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+		if (incorrectText2.value !== '' || incorrectImg2.value !== '') {
+			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity() && 
+			incorrectText2.value !== '' && incorrectImg2.value !== '') {
+				answers.push({
+					text: incorrectText2.value,
+					image: incorrectImg2.value,
+					isCorrectAnswer: false
+				})
+			} else {
+				quizDone.questions = []
+				return alert('Dados inválidos! Insira os dados corretamente!')
+			}
+		}
+		if (incorrectText3.value !== '' || incorrectImg3.value !== '') {
+			if (checkURL(incorrectImg3.value) === true && incorrectImg3.checkValidity() &&
+			incorrectText3.value !== '' && incorrectImg3.value !== '') {
+				answers.push({
+					text: incorrectText3.value,
+					image: incorrectImg3.value,
+					isCorrectAnswer: false
+				})
+			} else {
+				quizDone.questions = []
+				return alert('Dados inválidos! Insira os dados corretamente!')
+			}
+		}
+
+		if (isHex(questionColor.value) === false || checkURL(correctImg.value) === false ||
+			checkURL(incorrectImg1.value) === false || !questionText.checkValidity() ||
+			!questionColor.checkValidity() || !correctText.checkValidity() ||
+			!incorrectText1.checkValidity() || !correctImg.checkValidity() || !incorrectImg1.checkValidity()) {
+
 			quizDone.questions = []
 			return alert('Dados inválidos! Insira os dados corretamente!')
-			//i = questions.length
+
 		} else {
 			quizDone.questions.push({
 				title: questionText.value,
@@ -369,7 +444,8 @@ function saveLvls() {
 		let lvlImg = level.querySelector('.lvlImg')
 		let lvlDesc = level.querySelector('.lvlDesc')
 
-		if (!lvlText.checkValidity() || !lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
+		if (checkURL(lvlImg.value) === false || !lvlText.checkValidity() ||
+			!lvlMin.checkValidity() || !lvlImg.checkValidity() || !lvlDesc.checkValidity()) {
 			quizDone.levels = []
 			return alert('Dados inválidos! Insira os dados corretamente!!')
 		} else {
@@ -390,15 +466,11 @@ function saveLvls() {
 	postQuiz()
 }
 
-let userQuizId = 0
-let userQuizDone = null
-let allUserQuiz = []
-
 function postQuiz() {
 	const promise = axios.post(API_QUIZZ, quizDone)
 	promise.then(response => {
-		userQuizDone = response.data
-		userQuizId = response.data.id
+		let userQuizDone = response.data
+		let userQuizId = response.data.id
 		saveUserQuiz(userQuizDone, userQuizId)
 		getAllUserQuiz()
 		hideScreen('Seu quizz está pronto!', lvlScreen, `startQuizz(${userQuizId})`, 'Acessar Quizz')
@@ -406,15 +478,13 @@ function postQuiz() {
 	})
 }
 
-let quizDoneSerialized = null;
-
 function saveUserQuiz(quiz, id) {
-	quizDoneSerialized = JSON.stringify(quiz)
+	let quizDoneSerialized = JSON.stringify(quiz)
 	localStorage.setItem(`${id}`, quizDoneSerialized)
 }
 
 function getAllUserQuiz() {
-	allUserQuiz = []
+	let allUserQuiz = []
 	for (let i = 0; i < localStorage.length; i++) {
 		let quizId = localStorage.key(i)
 		let userQuizSerialized = localStorage.getItem(quizId)
@@ -436,7 +506,7 @@ function createEnd() {
 	`
 	createQuiz.innerHTML += `
 	<div class="finalButton">
-        <span onclick="backHome()">Voltar pra home</span>
+        <span onclick="reload()">Voltar pra home</span>
     </div>
 	`
 	const lastBtn = createQuiz.querySelector('button')
@@ -444,20 +514,11 @@ function createEnd() {
 }
 
 
-function backHome() {
-	//window.location.reload()
-	//getAllQuizz()
-	const promise = axios.get(API_QUIZZ);
-	promise.then(response => {
-		renderAllQuizz(response.data)
-		createQuiz.classList.add('hidden')
-		mainScreen.classList.remove('hidden')
-	});
-}
-
-
-
 ///////////////Funções Auxiliares da Criação////////////
+
+function checkURL(url) {
+	return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
 
 function hideScreen(text, screen, btn, textBtn) {
 	h3.innerText = text
@@ -487,12 +548,7 @@ function openBox(button, screen, screenOpen) {
 	box.classList.add('config')
 	const showScreen = box.querySelector(`.${screenOpen}`)
 	showScreen.classList.remove('hidden')
-	scrollScreen('config')
-}
-
-function scrollScreen(box) {
-	let elementoQueQueroQueApareca = document.querySelector(`.${box} h3`);
-	elementoQueQueroQueApareca.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	scroll('config h3')
 }
 
 const hexChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
@@ -598,7 +654,15 @@ getAllQuizz()
 	]
 }
 
-
+function backHome() {
+	//window.location.reload() //getAllQuizz()
+	const promise = axios.get(API_QUIZZ);
+	promise.then(response => {
+		renderAllQuizz(response.data)
+		createQuiz.classList.add('hidden')
+		mainScreen.classList.remove('hidden')
+	});
+}
 
 document.addEventListener("keypress", function (e) {
 	if (e.key === "Enter") {
