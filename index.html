@@ -26,8 +26,60 @@
         </section>
         <h2>Todos os Quizzes</h2>
         <section class="allQuizz">
-            <!-- Carregado dinamicamente via JS -->
-            <article onclick="startQuizz(this)">
+        </section>
+
+    </main>
+
+    <div class="screen-2">
+        <div class="screen-2-header">
+        </div>
+
+        <div class="screen-2-quizz">
+        </div>
+    </div>
+
+    <!---------Criação Quiz--------->
+
+    <div class="createQuiz hidden">
+        <div class="createHeader">
+            <h3>Comece pelo começo</h3>
+        </div>
+        <div class="container">
+            <div class="basicInfoScreen">
+                <input type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" required>
+                </input>
+                <input type="url" placeholder="URL da imagem do seu quizz" required>
+                </input>
+                <input type="number" placeholder="Quantidade de perguntas do quizz" min="3" required>
+                </input>
+                <input type="number" placeholder="Quantidade de níveis do quizz" min="2" required>
+                </input>
+            </div>
+            <div class="questionScreen"></div>
+            <div class="lvlScreen"></div>
+            <div class="endScreen"></div>
+        </div>
+
+        <button onclick="saveBasicInfo()">
+            <span>Prosseguir pra criar perguntas</span>
+        </button>
+
+    </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+<!-- ---------------Rascunho-----------------
+<article onclick="startQuizz(this)">
                 <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                     alt="">
                 <div class="gradient">
@@ -42,22 +94,14 @@
                 <p> Teste nome</p>
             </article>
 
-        </section>
-
-    </main>
-
-    <div class="screen-2">
-        <div class="screen-2-header">
-            <!-- <figure>
+<figure>
                 <p>Titulo do Quizz</p>
                 <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                     alt="">
                 <div class="gradient-2"></div>
-            </figure> -->
-        </div>
+            </figure> 
 
-        <div class="screen-2-quizz">
-            <!-- <section class="box-quizz">
+<section class="box-quizz">
                 <div class="title">Kchorro</div>
 
                 <div class="questions">
@@ -115,43 +159,5 @@
                         <span>carhorro</span>
                     </span>
                 </div>
-            </section> -->
-        </div>
-    </div>
-
-    <!---------Criação Quiz--------->
-
-    <div class="createQuiz hidden">
-        <div class="createHeader">
-            <h3>Comece pelo começo</h3>
-        </div>
-        <div class="container">
-            <div class="basicInfoScreen">
-                <input type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" required>
-                </input>
-                <input type="url" placeholder="URL da imagem do seu quizz" required>
-                </input>
-                <input type="number" placeholder="Quantidade de perguntas do quizz" min="3" required>
-                </input>
-                <input type="number" placeholder="Quantidade de níveis do quizz" min="2" required>
-                </input>
-            </div>
-            <div class="questionScreen"></div>
-            <div class="lvlScreen"></div>
-            <div class="endScreen"></div>
-        </div>
-
-        <button onclick="saveBasicInfo()">
-            <span>Prosseguir pra criar perguntas</span>
-        </button>
-
-    </div>
-
-
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
-</body>
-
-</html>
+            </section> 
+   ----------------- -->

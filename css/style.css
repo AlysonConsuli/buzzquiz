@@ -486,6 +486,25 @@ textarea {
     cursor: pointer;
 }
 
+
+/*//// Testando Scroll modificando css ////////////*/ 
+/*article {
+    width: 90%;
+    max-width: 306px;
+}
+
+article img {
+    width: 100%;
+    max-width: 340px;
+}
+
+.gradient {
+    width: 100%;
+    max-width: 340px;
+}*/
+/*//// Testando Scroll modificando css ////////////*/ 
+
+
 /*/////////Auxiliares/////////*/
 
 .hidden {
@@ -558,5 +577,23 @@ textarea {
         width: 690px;
         height: 138px;
     }*/
+
+    /*//// Testando Scroll modificando css ////////////*/ 
+    /*article {
+        width: 90%;
+        max-width: 450px;
+    }
+    
+    article img {
+        width: 100%;
+        height: 266px;
+        max-width: 500px;
+    }
+    
+    .gradient {
+        width: 100%;
+        max-width: 500px;
+    }*/
+    /*//// Testando Scroll modificando css ////////////*/ 
 
 }

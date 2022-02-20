@@ -16,8 +16,8 @@ let levelText = null;
 
 // Render tela se tem quizz salvo ou nao//
 
-setTimeout(getAllUserQuiz, 400)
-setTimeout(renderAllUserQuizz, 401)
+//setTimeout(getAllUserQuiz, 400)
+//setTimeout(renderAllUserQuizz, 401)
 
 function renderAllUserQuizz() {
 	if (allUserQuiz.length !== 0) {
@@ -142,12 +142,15 @@ function startQuizz(response) {
 					</span>`
 			})
 		})
-	})
-	setTimeout(() => {
 		questionsToEnd = document.querySelectorAll('.questions').length;
 		console.log(questionsToEnd);
 		numberQuestionsTotal = questionsToEnd;
-	}, 400)
+	})
+	/*setTimeout(() => {
+		questionsToEnd = document.querySelectorAll('.questions').length;
+		console.log(questionsToEnd);
+		numberQuestionsTotal = questionsToEnd;
+	}, 400)*/
 
 
 }
@@ -238,7 +241,7 @@ function acabou() {
 
 }
 
-function restartBtn(){
+function restartBtn() {
 	screenQuestion.innerHTML += `
 	<button class="reduceBtn" onclick=restart()>
         <span>Reiniciar Quizz</span>
@@ -251,7 +254,7 @@ function restartBtn(){
 
 const reload = () => window.location.reload()
 
-function restart(){
+function restart() {
 	screenQuestion.innerHTML = ""
 	scrollTo = 0;
 	questionsToEnd = null;
@@ -261,7 +264,7 @@ function restart(){
 	scroll('screen-2-header')
 }
 
-function scroll(box){
+function scroll(box) {
 	let elementoQueQueroQueApareca = document.querySelector(`.${box}`);
 	elementoQueQueroQueApareca.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
@@ -370,8 +373,8 @@ function saveQuestions() {
 		]
 
 		if (incorrectText2.value !== '' || incorrectImg2.value !== '') {
-			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity() && 
-			incorrectText2.value !== '' && incorrectImg2.value !== '') {
+			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity() &&
+				incorrectText2.value !== '' && incorrectImg2.value !== '') {
 				answers.push({
 					text: incorrectText2.value,
 					image: incorrectImg2.value,
@@ -384,7 +387,7 @@ function saveQuestions() {
 		}
 		if (incorrectText3.value !== '' || incorrectImg3.value !== '') {
 			if (checkURL(incorrectImg3.value) === true && incorrectImg3.checkValidity() &&
-			incorrectText3.value !== '' && incorrectImg3.value !== '') {
+				incorrectText3.value !== '' && incorrectImg3.value !== '') {
 				answers.push({
 					text: incorrectText3.value,
 					image: incorrectImg3.value,
@@ -483,7 +486,7 @@ function saveUserQuiz(quiz, id) {
 	localStorage.setItem(`${id}`, quizDoneSerialized)
 }
 
-let allUserQuiz =[]
+let allUserQuiz = []
 
 function getAllUserQuiz() {
 	allUserQuiz = []
@@ -581,6 +584,8 @@ function hasLvl0() {
 
 
 //////////////// Inicialização/////////////////// 
+getAllUserQuiz()
+renderAllUserQuizz()
 getAllQuizz()
 
 
