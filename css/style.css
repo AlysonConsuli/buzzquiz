@@ -492,15 +492,24 @@ article img {
         max-width: 80%;
     }
     .hasUserQuizz ion-icon{
-        left: 107%;
-        top: -4px;
+        left: 142px;
+        top: 21px;
+
     }
     .hasUserQuizz p {
         margin-right: 62vw;
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .hasUserQuizz p.hasUserQuizz-title{
+        margin-left: 10px;
+        position: relative;
     }
     .hasUserQuizz{
         display: flex;
         flex-wrap: wrap;
+        margin-left: 15px;
     }
     .hasUserQuizz article{
         width: 340px;
@@ -514,6 +523,7 @@ article img {
     .allQuizz{
         display: flex;
         flex-wrap: wrap;
+        margin-left: 15px;
     }
     .allQuizz article{
         width: 340px;
@@ -532,5 +542,8 @@ article img {
     .boxLevelQuizzBottom{
         display: flex;
     }
-    
+}
+
+.hidden {
+    display: none;
 }
