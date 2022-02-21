@@ -615,18 +615,26 @@ h6{
     } */
 
     .hasUserQuizz ion-icon{
-        left: 107%;
-        top: -4px;
+        left: 142px;
+        top: 21px;
 
     }
 
     .hasUserQuizz p {
         margin-right: 62vw;
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .hasUserQuizz p.hasUserQuizz-title{
+        margin-left: 10px;
+        position: relative;
     }
 
     .hasUserQuizz{
         display: flex;
         flex-wrap: wrap;
+        margin-left: 15px;
     }
 
 
@@ -645,6 +653,7 @@ h6{
     .allQuizz{
         display: flex;
         flex-wrap: wrap;
+        margin-left: 15px;
     }
 
     .allQuizz article{
@@ -672,4 +681,6 @@ h6{
     }
 }
 
-
+.hidden {
+    display: none;
+}
