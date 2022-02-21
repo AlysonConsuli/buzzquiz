@@ -510,11 +510,11 @@ article img {
     .hasUserQuizz article{
         width: 340px;
         margin-left: 9px;
-        margin-right: 16px;
+        margin-right: 6px;
     }
     .allQuizz article{
         margin-left: 9px;
-        margin-right: 16px;
+        margin-right: 6px;
     }
     .allQuizz{
         display: flex;
