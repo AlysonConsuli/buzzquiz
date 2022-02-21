@@ -180,7 +180,7 @@ function checkCorret(alternative) {
 		}, 2000)
 		numberCorrectAnswers++
 		questionsToEnd--
-		if (questionsToEnd === 0) { acabou() }
+		if (questionsToEnd === 0) { endQuizz() }
 	}
 
 	else {
@@ -197,11 +197,11 @@ function checkCorret(alternative) {
 
 		}, 2000)
 		questionsToEnd--
-		if (questionsToEnd === 0) { acabou() }
+		if (questionsToEnd === 0) { endQuizz() }
 	}
 }
 
-function acabou() {
+function endQuizz() {
 	setTimeout(() => {
 		let percentCorrect = Math.round((numberCorrectAnswers / numberQuestionsTotal) * 100)
 		console.log(percentCorrect);
@@ -231,8 +231,10 @@ function acabou() {
 			<div class="titlefinal">
 				<h5>${percentCorrect}% de acerto: ${levelTitle} </h5>
 			</div>
-			<img src="${levelImage}" alt="photo level answer"> 
-			<div class="description"> <h6>${levelText}</h6> </div>
+			<div class="boxLevelQuizzBottom">
+				<img src="${levelImage}" alt="photo level answer"> 
+				<div class="description"> <h6>${levelText}</h6> </div>
+			</div>
 			</section>
 		`
 		restartBtn()

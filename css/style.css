@@ -37,7 +37,6 @@ header {
     height: 181px;
 
     display: flex;
-    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
@@ -66,6 +65,7 @@ header {
 }
 
 .hasUserQuizz p {
+    position: relative;
     margin-top: 1.5rem;
     margin-left: 1.5rem;
     margin-bottom: 1rem;
@@ -100,6 +100,7 @@ header {
 .hasUserQuizz p.title {
     font-size: 19px;
     line-height: 22px;
+    
     position: absolute;
     bottom: 10%;
     left: 4%;
@@ -224,7 +225,6 @@ article p {
     width: 373px;
     margin: auto;
     margin-top: 30px;
-    /* background-color: #EC362D; */
     margin-bottom: 40px;
 }
 
@@ -268,7 +268,6 @@ article p {
     object-fit: cover;
     margin: 10px;
 }
-
 
 .correctAnswer {
     color: #009C22;
@@ -511,6 +510,10 @@ article img {
     display: none;
 }
 
+h6{
+    overflow: hidden;
+    margin-top: 15px;
+}
 
 /*///////// Desktop //////////*/
 
@@ -596,4 +599,77 @@ article img {
     }*/
     /*//// Testando Scroll modificando css ////////////*/ 
 
+
+
+   /*    TELA 1   */
+
+    main {
+        margin: auto;
+        max-width: 80%;
+    }
+
+
+
+    /* h2{
+        margin-left: 1.78rem;
+    } */
+
+    .hasUserQuizz ion-icon{
+        left: 107%;
+        top: -4px;
+
+    }
+
+    .hasUserQuizz p {
+        margin-right: 62vw;
+    }
+
+    .hasUserQuizz{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+    .hasUserQuizz article{
+        width: 340px;
+        margin-left: 9px;
+        margin-right: 16px;
+    }
+
+    .allQuizz article{
+        margin-left: 9px;
+        margin-right: 16px;
+    }
+
+
+    .allQuizz{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .allQuizz article{
+        width: 340px;
+    }
+
+
+    .screen-2 section{
+        width: 688px;
+    }
+
+    .screen-2 .screen-2-quizz section .title {
+    width: 98%;
+    margin-left: 9px;
+    }
+
+    .screen-2 .screen-2-quizz section img {
+        width: 329px;
+        height: 175px;
+    }
+
+
+    .boxLevelQuizzBottom{
+        display: flex;
+    }
 }
+
+
