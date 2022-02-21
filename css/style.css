@@ -37,12 +37,6 @@ header {
     border: 1px dashed #D5D5D5;
     border-radius: 5px;
 }
-.hasUserQuizz article {
-    width: 90%;
-    margin: auto;
-    position: relative;
-    margin-bottom: 1rem;
-}
 .hasUserQuizz {
     position: relative;
 }
@@ -52,6 +46,7 @@ header {
     right: 20px;
     color: #EC362D;
     font-size: 30px;
+    cursor: pointer;
 }
 .hasUserQuizz p {
     position: relative;
@@ -62,25 +57,6 @@ header {
     font-weight: bold;
     line-height: 23px;
     color: #000000;
-}
-.hasUserQuizz .gradient {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, rgb(0, 0, 0) 100%);
-    border-radius: 5px;
-    width: 340px;
-    margin: auto;
-}
-.hasUserQuizz img {
-    width: 340px;
-    height: 181px;
-    object-fit: cover;
-    display: flex;
-    margin: auto;
-    border-radius: 5px;
 }
 .hasUserQuizz p.title {
     font-size: 19px;
@@ -121,6 +97,7 @@ article {
     margin: auto;
     position: relative;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 article img {
     width: 340px;
@@ -216,6 +193,7 @@ article p {
     flex-direction: column;
     width: 50%;
     margin-bottom: 7px;
+    cursor: pointer;
 }
 .screen-2 section .questions .question span {
     margin-left: 10px;
@@ -269,6 +247,7 @@ article p {
     color: #484848;
     line-height: 19px;
     overflow-x: hidden;
+    word-break: break-word;
 }
 
 /*///////// Criação Quiz ///////////*/
@@ -394,13 +373,6 @@ h6{
     overflow: hidden;
     margin-top: 15px;
 }
-
-/*//// Testando Scroll modificando css ////////////*/ 
-/*article {
-    width: 90%;
-    max-width: 306px;
-}
-
 article img {
     width: 100%;
     max-width: 340px;
@@ -409,8 +381,7 @@ article img {
 .gradient {
     width: 100%;
     max-width: 340px;
-}*/
-/*//// Testando Scroll modificando css ////////////*/ 
+}
 
 /*///////// Desktop //////////*/
 
@@ -463,23 +434,21 @@ article img {
         font-size: 19px;
     }
 
-    /*//// Testando Scroll modificando css ////////////*/ 
-    /*article {
+    .createQuiz article {
         width: 90%;
         max-width: 450px;
     }
     
-    article img {
+    .createQuiz article img {
         width: 100%;
         height: 266px;
         max-width: 500px;
     }
     
-    .gradient {
+    .createQuiz .gradient {
         width: 100%;
         max-width: 500px;
-    }*/
-    /*//// Testando Scroll modificando css ////////////*/ 
+    }
 
    /*/////// Tela 1 ////////*/
 
@@ -490,7 +459,7 @@ article img {
     .hasUserQuizz ion-icon{
         left: 142px;
         top: 21px;
-
+        cursor: pointer;
     }
     .hasUserQuizz p {
         margin-right: 62vw;
@@ -537,6 +506,7 @@ article img {
     }
     .boxLevelQuizzBottom{
         display: flex;
+        margin: 0 21px;
     }
 }
 
@@ -545,7 +515,7 @@ article img {
 .hidden {
     display: none;
 }
-input:invalid,
+/*input:invalid,
 textarea:invalid {
     background-color: #FFE9E9;
-}
+}*/

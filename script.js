@@ -113,18 +113,16 @@ function startQuizz(response) {
 
 }
 
-
-
 function checkCorret(alternative) {
-	const teste = alternative.parentNode;
+	const box = alternative.parentNode;
 	alternative.classList.add('selected')
-	const testeArray = teste.querySelectorAll('.question')
+	const boxArray = box.querySelectorAll('.question')
 
 	if (alternative.classList[1] == 'istrue') {
 		alternative.classList.add('correctAnswer')
-		teste.style.pointerEvents = "none"
+		box.style.pointerEvents = "none"
 
-		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
+		boxArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
 		setTimeout(() => {
@@ -138,9 +136,9 @@ function checkCorret(alternative) {
 
 	else {
 		alternative.classList.add('wrongAnswer')
-		teste.style.pointerEvents = "none"
+		box.style.pointerEvents = "none"
 
-		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
+		boxArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
 		setTimeout(() => {
