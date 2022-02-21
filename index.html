@@ -7,39 +7,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://bootcampra.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7ad68f59-02c2-45ff-b84c-e8fbf54e471f%2Fbuzzfeed_arrow.e86a786d9e5e2250e1ed3e0ec95ba42d.png?table=block&id=0f36c705-0aab-4e6b-b216-af4d70eda98f&spaceId=f797e032-5eb2-4c9d-beb7-cd7181e19e47&width=250&userId=&cache=v2"/>
+    <link rel="icon"
+        href="https://bootcampra.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7ad68f59-02c2-45ff-b84c-e8fbf54e471f%2Fbuzzfeed_arrow.e86a786d9e5e2250e1ed3e0ec95ba42d.png?table=block&id=0f36c705-0aab-4e6b-b216-af4d70eda98f&spaceId=f797e032-5eb2-4c9d-beb7-cd7181e19e47&width=250&userId=&cache=v2" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>buzzquiz</title>
 </head>
 
 <body>
+
     <header>BuzzQuizz</header>
-    <main class="">
+    <main>
         <section class="noQuizz">
             <p> não criou nenhum quizz ainda :(</p>
             <button onclick="showScreen3()">Criar Quizz</button>
         </section>
-        
+
         <section class="hasUserQuizz hidden">
             <p> Seus Quizzes
                 <ion-icon name="add-circle" onclick="showScreen3()"></ion-icon>
-
             </p>
-            
-        </section>
-        <h2>Todos os Quizzes</h2>
-        <section class="allQuizz">
         </section>
 
+        <h2>Todos os Quizzes</h2>
+        <section class="allQuizz"></section>
     </main>
 
     <div class="screen-2">
-        <div class="screen-2-header">
-        </div>
-
-        <div class="screen-2-quizz">
-        </div>
+        <div class="screen-2-header"></div>
+        <div class="screen-2-quizz"></div>
     </div>
 
     <!---------Criação Quiz--------->
@@ -50,24 +46,18 @@
         </div>
         <div class="container">
             <div class="basicInfoScreen">
-                <input type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" required>
-                </input>
-                <input type="url" placeholder="URL da imagem do seu quizz" required>
-                </input>
-                <input type="number" placeholder="Quantidade de perguntas do quizz" min="3" required>
-                </input>
-                <input type="number" placeholder="Quantidade de níveis do quizz" min="2" required>
-                </input>
+                <input type="text" placeholder="Título do seu quizz" minlength="20" maxlength="65" required></input>
+                <input type="url" placeholder="URL da imagem do seu quizz" required></input>
+                <input type="number" placeholder="Quantidade de perguntas do quizz" min="3" required></input>
+                <input type="number" placeholder="Quantidade de níveis do quizz" min="2" required></input>
             </div>
             <div class="questionScreen"></div>
             <div class="lvlScreen"></div>
             <div class="endScreen"></div>
         </div>
-
         <button onclick="saveBasicInfo()">
             <span>Prosseguir pra criar perguntas</span>
         </button>
-
     </div>
 
 
@@ -77,91 +67,3 @@
 </body>
 
 </html>
-
-
-
-
-
-<!-- ---------------Rascunho-----------------
-<article onclick="startQuizz(this)">
-                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt="">
-                <div class="gradient">
-                    <p> Teste nome</p>
-                </div>
-            </article>
-
-            <article onclick="startQuizz(this)">
-                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt="">
-                <div class="gradient"></div>
-                <p> Teste nome</p>
-            </article>
-
-<figure>
-                <p>Titulo do Quizz</p>
-                <img src="https://images.pexels.com/photos/2560510/pexels-photo-2560510.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt="">
-                <div class="gradient-2"></div>
-            </figure> 
-
-<section class="box-quizz">
-                <div class="title">Kchorro</div>
-
-                <div class="questions">
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-                </div>
-            </section>
-
-            <section class="box-quizz">
-                <div class="title">Kchorro</div>
-
-                <div class="questions">
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-
-                    <span class="question">
-                        <img src="https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                            alt="">
-                        <span>carhorro</span>
-                    </span>
-                </div>
-            </section> 
-   ----------------- -->
