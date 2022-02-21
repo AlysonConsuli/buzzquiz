@@ -1,7 +1,6 @@
 //   Variaveis Globais    //
 const API_QUIZZ = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
 
-
 // Variaveis de controle pra tela 2 //
 let scrollTo = 0;
 let questionsToEnd = null;
@@ -13,19 +12,12 @@ let levelImage = null;
 let levelTitle = null;
 let levelText = null;
 
-
-// Render tela se tem quizz salvo ou nao//
-
-//setTimeout(getAllUserQuiz, 400)
-//setTimeout(renderAllUserQuizz, 401)
-
 function renderAllUserQuizz() {
 	if (allUserQuiz.length !== 0) {
 		document.querySelector('.noQuizz').classList.add('hidden')
 		document.querySelector('.hasUserQuizz').classList.remove('hidden')
 
 		allUserQuiz.forEach((x) => {
-			console.log(x);
 
 			document.querySelector('.hasUserQuizz').innerHTML += `
 
@@ -41,13 +33,10 @@ function renderAllUserQuizz() {
 
 }
 
-
-
 //  Renderização da Tela 1 //
 function getAllQuizz() {
 	const promise = axios.get(API_QUIZZ);
 	promise.then(response => {
-		console.log(response)
 		renderAllQuizz(response.data)
 	});
 }
@@ -81,47 +70,25 @@ let selectedQuiz = 0
 const mainScreen = document.querySelector('main')
 function startQuizz(response) {
 	selectedQuiz = response
-	//console.log(response);
 	const mainScreen = document.querySelector('main')
 	mainScreen.classList.add('hidden')
 	createQuiz.classList.add('hidden')
-	//let selectedQuizz = response.id
-
-	// console.log(response);
-	// console.log(selectedQuizz);
 
 	currentQuizz = axios.get(`${API_QUIZZ}/${response}`)
-	//const scren2 = document.querySelector('.screen-2-header')
-	//const screenQuestion = document.querySelector('.screen-2-quizz')
-
-
-	// console.log(screenQuestion);
-	// scren2.innerHTML = ""
 
 	currentQuizz.then((response) => {
 		currentQuizz = response.data
 		levelsQuizz = currentQuizz.levels
-		console.log(levelsQuizz);
-		console.log(currentQuizz);
 		scren2.innerHTML = `
         <figure>
             <p>${currentQuizz.title}</p>
             <img src="${currentQuizz.image}" alt="imagem do quizz">
             <div class="gradient-2"></div>
         </figure>
-
 		`
-
-
 		let newQuestions = response.data.questions
 
-		// console.log(newQuestions);
-
-
-
 		newQuestions.forEach((question, indexd) => {
-			// console.log(question);
-			// console.log(i);
 			screenQuestion.innerHTML += `
 			<section class="box-quizz">
 				<div class="title"  style="background-color:${question.color}">
@@ -131,11 +98,9 @@ function startQuizz(response) {
 			</section>
 			`
 			questionNum = question.answers.sort(() => Math.random() - 0.5)
-			// console.log(question);
 
 			questionNum.forEach((element,) => {
 				document.querySelector(`.questions.q${indexd}`).innerHTML += `
-				
 				<span class="question is${element.isCorrectAnswer}" onclick="checkCorret(this)">
 						<img src="${element.image}" alt="quizz answer photo">
 						<span>${element.text}</span>
@@ -143,37 +108,25 @@ function startQuizz(response) {
 			})
 		})
 		questionsToEnd = document.querySelectorAll('.questions').length;
-		console.log(questionsToEnd);
 		numberQuestionsTotal = questionsToEnd;
 	})
-	/*setTimeout(() => {
-		questionsToEnd = document.querySelectorAll('.questions').length;
-		console.log(questionsToEnd);
-		numberQuestionsTotal = questionsToEnd;
-	}, 400)*/
-
 
 }
 
 
 
 function checkCorret(alternative) {
-	// console.log(response.classList);
-	// console.log(response.parentNode);
 	const teste = alternative.parentNode;
 	alternative.classList.add('selected')
 	const testeArray = teste.querySelectorAll('.question')
 
-
 	if (alternative.classList[1] == 'istrue') {
 		alternative.classList.add('correctAnswer')
-		console.log('acertou! :D');
 		teste.style.pointerEvents = "none"
 
 		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
-		// console.log(scrollTo);
 		setTimeout(() => {
 			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
 
@@ -185,13 +138,11 @@ function checkCorret(alternative) {
 
 	else {
 		alternative.classList.add('wrongAnswer')
-		console.log('errou! :(');
 		teste.style.pointerEvents = "none"
 
 		testeArray.forEach(element => { if (element.classList[2] != 'selected') { element.style.opacity = '0.3' } })
 
 		scrollTo++
-		console.log(scrollTo);
 		setTimeout(() => {
 			document.querySelector(`.questions.q${scrollTo}`).scrollIntoView({ block: "center", behavior: "smooth" })
 
@@ -204,13 +155,11 @@ function checkCorret(alternative) {
 function endQuizz() {
 	setTimeout(() => {
 		let percentCorrect = Math.round((numberCorrectAnswers / numberQuestionsTotal) * 100)
-		console.log(percentCorrect);
 
 		levelsQuizz = levelsQuizz.sort(function (a, b) {
 			return a.minValue - b.minValue
 		}
 		)
-		console.log(levelsQuizz);
 		levelsQuizz.forEach(level => {
 			if (percentCorrect >= level.minValue) {
 
@@ -218,9 +167,6 @@ function endQuizz() {
 				levelTitle = level.title;
 				levelText = level.text
 				levelPercent = level.minValue;
-				console.log(levelImage);
-				console.log(levelTitle);
-				console.log(levelText);
 			}
 
 		})
@@ -272,7 +218,6 @@ function scroll(box) {
 }
 
 
-
 ////////////////Criação Quiz////////////////
 
 const quizDone = {
@@ -283,7 +228,6 @@ const quizDone = {
 }
 
 const createQuiz = document.querySelector('.createQuiz')
-//const container = createQuiz.querySelector('.container')
 const basicInfoScreen = createQuiz.querySelector('.basicInfoScreen')
 const questionScreen = createQuiz.querySelector('.questionScreen')
 const lvlScreen = createQuiz.querySelector('.lvlScreen')
@@ -298,7 +242,6 @@ let h3 = createQuiz.querySelector('h3')
 let buttonCreateQuiz = createQuiz.querySelector('button')
 
 function saveBasicInfo() {
-
 	if (checkURL(quizImg.value) === false || !quizTitle.checkValidity() ||
 		!quizImg.checkValidity() || !numberQuestions.checkValidity() || !numberLvls.checkValidity()) {
 		alert('Dados inválidos! Insira os dados corretamente.')
@@ -374,9 +317,8 @@ function saveQuestions() {
 			}
 		]
 
-		if (incorrectText2.value !== '' || incorrectImg2.value !== '') {
-			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity() &&
-				incorrectText2.value !== '' && incorrectImg2.value !== '') {
+		if (incorrectText2.value !== '' && incorrectImg2.value !== '') {
+			if (checkURL(incorrectImg2.value) === true && incorrectImg2.checkValidity()) {
 				answers.push({
 					text: incorrectText2.value,
 					image: incorrectImg2.value,
@@ -387,9 +329,8 @@ function saveQuestions() {
 				return alert('Dados inválidos! Insira os dados corretamente!')
 			}
 		}
-		if (incorrectText3.value !== '' || incorrectImg3.value !== '') {
-			if (checkURL(incorrectImg3.value) === true && incorrectImg3.checkValidity() &&
-				incorrectText3.value !== '' && incorrectImg3.value !== '') {
+		if (incorrectText3.value !== '' && incorrectImg3.value !== '') {
+			if (checkURL(incorrectImg3.value) === true && incorrectImg3.checkValidity()) {
 				answers.push({
 					text: incorrectText3.value,
 					image: incorrectImg3.value,
@@ -498,7 +439,6 @@ function getAllUserQuiz() {
 		let userQuiz = JSON.parse(userQuizSerialized)
 		allUserQuiz.push(userQuiz)
 	}
-	//console.log(allUserQuiz)
 	return allUserQuiz
 }
 
@@ -583,105 +523,7 @@ function hasLvl0() {
 	}
 }
 
-
-
 //////////////// Inicialização/////////////////// 
 getAllUserQuiz()
 renderAllUserQuizz()
 getAllQuizz()
-
-
-
-
-/* ///////////////RASCUNHO///////////////
-{
-	title: "Título do quizz",
-	image: "https://http.cat/411.jpg",
-	questions: [
-		{
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 2",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		},
-		{
-			title: "Título da pergunta 3",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		}
-	],
-	levels: [
-		{
-			title: "Título do nível 1",
-			image: "https://http.cat/411.jpg",
-			text: "Descrição do nível 1",
-			minValue: 0
-		},
-		{
-			title: "Título do nível 2",
-			image: "https://http.cat/412.jpg",
-			text: "Descrição do nível 2",
-			minValue: 50
-		}
-	]
-}
-
-function backHome() {
-	//window.location.reload() //getAllQuizz()
-	const promise = axios.get(API_QUIZZ);
-	promise.then(response => {
-		renderAllQuizz(response.data)
-		createQuiz.classList.add('hidden')
-		mainScreen.classList.remove('hidden')
-	});
-}
-
-document.addEventListener("keypress", function (e) {
-	if (e.key === "Enter") {
-		const enviar = document.querySelector('footer ion-icon')
-		enviar.click()
-	}
-})
-
-localStorage.removeItem('i')
-localStorage.clear()
-localStorage.key(i)
-
-*/

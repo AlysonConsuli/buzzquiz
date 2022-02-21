@@ -191,6 +191,7 @@ article p {
     margin: auto;
     margin-top: 30px;
     margin-bottom: 40px;
+    background-color: #ffffff;
 }
 .screen-2 .screen-2-quizz section .title {
     width: 94%;
@@ -204,6 +205,7 @@ article p {
     color: #FFFFFF;
     margin: auto;
     margin-right: 13px;
+    word-break: break-word;
 }
 .screen-2 section .questions {
     display: flex;
@@ -218,6 +220,7 @@ article p {
 .screen-2 section .questions .question span {
     margin-left: 10px;
     overflow: hidden;
+    word-break: break-word;
 }
 .screen-2 section .questions img {
     width: 163px;
@@ -249,6 +252,7 @@ article p {
     font-weight: 700;
     margin-right: 2px;
     color: #ffffff;
+    word-break: break-word;
 }
 .boxLevelQuizz img {
     width: 350px;
@@ -325,10 +329,6 @@ button span {
     font-weight: 400;
     color: #FFF5F4;
 }
-/*input:invalid,
-textarea:invalid {
-    background-color: #FFE9E9;
-}*/
 .box {
     height: 74px;
     background-color: #FFFFFF;
@@ -411,10 +411,6 @@ article img {
     max-width: 340px;
 }*/
 /*//// Testando Scroll modificando css ////////////*/ 
-
-.hidden {
-    display: none;
-}
 
 /*///////// Desktop //////////*/
 
@@ -544,6 +540,12 @@ article img {
     }
 }
 
+/*/////// Auxiliares ///////*/
+
 .hidden {
     display: none;
+}
+input:invalid,
+textarea:invalid {
+    background-color: #FFE9E9;
 }
